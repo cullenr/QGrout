@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/test">
+        <file>assets/minecraft_tilesheet.png</file>
+    </qresource>
+</RCC>
