@@ -6,6 +6,9 @@
 #include "textureassetmanager.h"
 #include "resourcemanager.h"
 #include "scene.h"
+#include "textureasset.h"
+#include "material.h"
+#include "materialmanager.h"
 #include <QtQml/QQmlContext>
 
 int main(int argc, char *argv[])
@@ -14,12 +17,15 @@ int main(int argc, char *argv[])
     const int major = 1;
     const int minor = 0;
 
-    qmlRegisterType<Tilemap>("QGrout", major, minor, "Tilemap");
-    qmlRegisterType<ShaderAsset>("QGrout", major, minor, "ShaderAsset");
-    qmlRegisterType<AssetManager>("QGrout", major, minor, "ResourceManager");
+    qmlRegisterType<TextureAsset>("QGrout", major, minor, "TextureAsset");
     qmlRegisterType<TextureAssetManager>("QGrout", major, minor, "TextureAssetManager");
+    qmlRegisterType<ShaderAsset>("QGrout", major, minor, "ShaderAsset");
     qmlRegisterType<ShaderAssetManager>("QGrout", major, minor, "ShaderAssetManager");
+    qmlRegisterType<AssetManager>("QGrout", major, minor, "ResourceManager");
     qmlRegisterType<Scene>("QGrout", major, minor, "Scene");
+    qmlRegisterType<Material>("QGrout", major, minor, "Material");
+    qmlRegisterType<MaterialManager>("QGrout", major, minor, "MaterialManager");
+    qmlRegisterType<Tilemap>("QGrout", major, minor, "Tilemap");
 
     GameWindow viewer;
     viewer.rootContext()->setContextProperty("Window", &viewer);

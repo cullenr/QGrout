@@ -3,34 +3,32 @@
 
 #include <QObject>
 #include <QQuickWindow>
-#include <QHash>
-#include <QtCore/QList>
+#include <QList>
+#include <QQmlListProperty>
 #include <QString>
+#include "textureasset.h"
 
-//namespace QG
-//{
 class TextureAssetManager : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QList<QString> texturePaths MEMBER texturePaths NOTIFY texturePathsUpdated);
+    Q_PROPERTY(QQmlListProperty<TextureAsset> textureSources READ m_textureSourcesQmlList NOTIFY textureSourceUpdated);
+    Q_CLASSINFO("DefaultProperty", "textureSources")
 
 public:
     explicit TextureAssetManager(QObject *parent = 0);
+    ~TextureAssetManager();
 
     void loadTextures(QQuickWindow *window);
 
-    QList<QString> texturePaths;
 private:
-    QHash<QString, GLuint> m_textures;
-
+    QQmlListProperty<TextureAsset> m_textureSourcesQmlList();
+    QList<TextureAsset *> m_textureSources;
 
 signals:
-    void ready();
-    void texturePathsUpdated(QList<QString>);
+    void textureSourceUpdated(QList<QSGTexture *>);
 public slots:
 
 };
-//}
 
 #endif // RESOURCEMANAGER_H

@@ -8,13 +8,13 @@
 class GameWindow : public QtQuick2ApplicationViewer
 {
     Q_OBJECT
-
 public:
     GameWindow(QWindow *parent = 0);
     virtual ~GameWindow();
 
 private slots:
     void logStatus(QQuickView::Status status);
+    void handleSceneGraphInitialized();
 };
 
 #endif // GAMEWINDOW_H

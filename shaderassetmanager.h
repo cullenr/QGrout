@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QString>
-#include <QHash>
 #include <QList>
 #include <QQmlListProperty>
 
@@ -24,14 +23,9 @@ public:
     ~ShaderAssetManager();
 
     /**
-     * @brief addShader add a shader to the manager
-     * @param shaders a list of shaderAssets to be added.
-     * @param window the window to add the shaders to, the window is required to generate the openGl textures in the correct context
+     * @brief initialiseShaders initialises the shaders passed to the shaderSources QML property
      */
-    void addShader(QList<ShaderAsset *> shaders, QQuickWindow *window);
-    void addShader(ShaderAsset *shader, QQuickWindow *window);
-    void addShader(QQuickWindow *wondow);
-
+    void initialiseShaders();
 
     /**
      * @brief getShader by the shader name

@@ -1,86 +1,114 @@
 #include "tilemap.h"
+#include "material.h"
+#include "shaderasset.h"
+#include "textureasset.h"
 
 #include <QtQuick/qquickwindow.h>
 #include <QtGui/QOpenGLShaderProgram>
 #include <QtGui/QOpenGLContext>
+#include <QMatrix4x4>
+#include <QSGTexture>
+#include <QGLFunctions>
 
 Tilemap::Tilemap(QQuickItem *parent) :
     QQuickItem(parent),
-    m_program(0)
+    m_material(NULL),
+    m_GlFuncs(0)
 {
     connect(this, SIGNAL(windowChanged(QQuickWindow*)), this, SLOT(handleWindowChanged(QQuickWindow*)));
 }
 
-void Tilemap::handleWindowChanged(QQuickWindow *win)
+
+void Tilemap::handleWindowChanged(QQuickWindow *window)
 {
-    if(win)
+    if(window)
     {
         // Connect the beforeRendering signal to our paint function.
         // Since this call is executed on the rendering thread it must be
         // a Qt::DirectConnection
-        connect(win, SIGNAL(beforeRendering()), this, SLOT(draw()), Qt::DirectConnection);
+        connect(window, SIGNAL(beforeRendering()), this, SLOT(draw()), Qt::DirectConnection);
         // If we allow QML to do the clearing, they would clear what we paint
         // and nothing would show.
-        win->setClearBeforeRendering(false);
+        window->setClearBeforeRendering(false);
     }
 }
 
 void Tilemap::draw()
 {
+    if(!m_GlFuncs)
+    {
+        const float size = 4.0f;
 
-    if (!m_program) {
-        m_program = new QOpenGLShaderProgram();
-        m_program->addShaderFromSourceCode(QOpenGLShader::Vertex,
-                                           "attribute highp vec4 vertices;"
-                                           "varying highp vec2 coords;"
-                                           "void main() {"
-                                           "    gl_Position = vertices;"
-                                           "    coords = vertices.xy;"
-                                           "}");
-        m_program->addShaderFromSourceCode(QOpenGLShader::Fragment,
-                                           "uniform lowp float t;"
-                                           "varying highp vec2 coords;"
-                                           "void main() {"
-                                           "    lowp float i = 1. - (pow(abs(coords.x), 4.) + pow(abs(coords.y), 4.));"
-                                           "    i = smoothstep(t - 0.8, t + 0.8, i);"
-                                           "    i = floor(i * 20.) / 20.;"
-                                           "    gl_FragColor = vec4(coords * .5 + .5, i, i);"
-                                           "}");
+        float points[] = {
+             -size, -size,  0.0f,
+              size, -size,  0.0f,
+             -size,  size,  0.0f,
+              size,  size,  0.0f
+        };
 
-        m_program->bindAttributeLocation("vertices", 0);
-        m_program->link();
+//        float points[] = {
+//                 size,     size,  0.0f,
+//             2 * size,     size,  0.0f,
+//                 size, 2 * size,  0.0f,
+//             2 * size, 2 * size,  0.0f
+//        };
+
+        GLuint vbo = 0;
+        m_GlFuncs = window()->openglContext()->versionFunctions<QOpenGLFunctions_3_0>();
+        if (!m_GlFuncs)
+        {
+            qWarning() << "Could not obtain required OpenGL context version";
+            exit(1);
+        }
+        m_GlFuncs->initializeOpenGLFunctions();
+
+        m_GlFuncs->glGenBuffers (1, &vbo);
+        m_GlFuncs->glBindBuffer (GL_ARRAY_BUFFER, vbo);
+        m_GlFuncs->glBufferData (GL_ARRAY_BUFFER, 12 * sizeof (float), &points[0], GL_STATIC_DRAW);
+
+        m_GlFuncs->glGenVertexArrays(1, &m_tileVao);
+        m_GlFuncs->glBindVertexArray(m_tileVao);
+        m_GlFuncs->glEnableVertexAttribArray(0);
+        m_GlFuncs->glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        m_GlFuncs->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
+
+        m_GlFuncs->glBindBuffer (GL_ARRAY_BUFFER, 0);// QQuick gets bitchy if we dont do this.
     }
+    QOpenGLShaderProgram *shader = m_material->shader()->shader();
+    shader->bind();
 
-    m_program->bind();
+    QSGTexture *texture = m_material->texture()->texture();
+    m_GlFuncs->glActiveTexture(GL_TEXTURE0);
+    texture->bind();
+    shader->setUniformValue("texture", texture->textureId());
 
-    m_program->enableAttributeArray(0);
+    QMatrix4x4 modelMatrix;
+    modelMatrix.setToIdentity();
+    modelMatrix.translate(64, 64, 0);
+    shader->setUniformValue("modelMatrix", modelMatrix);
 
-    float values[] = {
-        -1, -1,
-        1, -1,
-        -1, 1,
-        1, 1
-    };
-    m_program->setAttributeArray(0, GL_FLOAT, values, 2);
-    m_program->setUniformValue("t", (float) 0.5f);
+    QMatrix4x4 viewMatrix;
+    viewMatrix.setToIdentity();
+    shader->setUniformValue("viewMatrix", viewMatrix);
 
-    glViewport(0, 0, window()->width(), window()->height());
+    QMatrix4x4 projectionMatrix;
+    projectionMatrix.setToIdentity();
+    projectionMatrix.ortho(0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f);
+    shader->setUniformValue("projectionMatrix", projectionMatrix);
 
-    glDisable(GL_DEPTH_TEST);
+    m_GlFuncs->glClearColor(1, 0, 0, 1);
+    m_GlFuncs->glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glClearColor(0, 1, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
+    m_GlFuncs->glBindVertexArray (m_tileVao);
+    m_GlFuncs->glDrawArrays (GL_TRIANGLE_STRIP, 0, 4);
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+    m_GlFuncs->glBindVertexArray (0);
+    m_GlFuncs->glActiveTexture(0);
+    shader->release();
 
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    m_program->disableAttributeArray(0);
-    m_program->release();
 }
 
 void Tilemap::componentComplete()
 {
-    qDebug("component complete");
+
 }

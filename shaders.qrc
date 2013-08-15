@@ -2,5 +2,9 @@
     <qresource prefix="/shaders">
         <file>assets/shaders/texture.frag</file>
         <file>assets/shaders/texture.vert</file>
+        <file>assets/shaders/squircle.vert</file>
+        <file>assets/shaders/squircle.frag</file>
+        <file>assets/shaders/basic.vert</file>
+        <file>assets/shaders/basic.frag</file>
     </qresource>
 </RCC>
