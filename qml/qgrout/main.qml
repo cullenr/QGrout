@@ -20,26 +20,22 @@ Item{
                     vertexShaderPath: ":/shaders/assets/shaders/texture.vert"
                     fragmentShaderPath: ":/shaders/assets/shaders/texture.frag"
                 }
-                ShaderAsset {
-                    id: squircle
-                    vertexShaderPath: ":/shaders/assets/shaders/squircle.vert"
-                    fragmentShaderPath: ":/shaders/assets/shaders/squircle.frag"
-                }
-                ShaderAsset {
-                    id: basic
-                    vertexShaderPath: ":/shaders/assets/shaders/basic.vert"
-                    fragmentShaderPath: ":/shaders/assets/shaders/basic.frag"
-                }
+//                ShaderAsset {
+//                    id: squircle
+//                    vertexShaderPath: ":/shaders/assets/shaders/squircle.vert"
+//                    fragmentShaderPath: ":/shaders/assets/shaders/squircle.frag"
+//                }
+//                ShaderAsset {
+//                    id: basic
+//                    vertexShaderPath: ":/shaders/assets/shaders/basic.vert"
+//                    fragmentShaderPath: ":/shaders/assets/shaders/basic.frag"
+//                }
             }
             materials: MaterialManager{
                 Material {
                     id: textureMaterial
                     shader: texture
                     texture: minecraftTiles
-                }
-                Material {
-                    id: squircleMaterial
-                    shader: basic
                 }
             }
         }

@@ -5,10 +5,16 @@
 
 #include <QtQuick/qquickwindow.h>
 #include <QtGui/QOpenGLShaderProgram>
-#include <QtGui/QOpenGLContext>
+#include <QOpenGLContext>
 #include <QMatrix4x4>
 #include <QSGTexture>
 #include <QGLFunctions>
+
+struct VertexData
+{
+    QVector3D position;
+    QVector2D texCoord;
+};
 
 Tilemap::Tilemap(QQuickItem *parent) :
     QQuickItem(parent),
@@ -35,26 +41,37 @@ void Tilemap::handleWindowChanged(QQuickWindow *window)
 
 void Tilemap::draw()
 {
-    if(!m_GlFuncs)
+    static bool initialised = false;
+    if(!initialised)
     {
-        const float size = 4.0f;
+        initialised = true;
 
-        float points[] = {
-             -size, -size,  0.0f,
-              size, -size,  0.0f,
-             -size,  size,  0.0f,
-              size,  size,  0.0f
-        };
+        const float size = 32.0f;
+        const float sixteenth = 1.0f / 16.0f;
+        const float x = 1;
+        const float y = 0;
+        const float u = x * sixteenth;
+        const float v = y * sixteenth;
 
-//        float points[] = {
-//                 size,     size,  0.0f,
-//             2 * size,     size,  0.0f,
-//                 size, 2 * size,  0.0f,
-//             2 * size, 2 * size,  0.0f
+//        VertexData verticies[] = {
+//            {QVector3D(-size, -size, 0.0f), QVector2D(u, v)},
+//            {QVector3D( size, -size, 0.0f), QVector2D(u + sixteenth, v)},
+//            {QVector3D(-size,  size, 0.0f), QVector2D(u, v + sixteenth)},
+//            {QVector3D( size,  size, 0.0f), QVector2D(u + sixteenth, v + sixteenth)},
 //        };
 
-        GLuint vbo = 0;
-        m_GlFuncs = window()->openglContext()->versionFunctions<QOpenGLFunctions_3_0>();
+        VertexData verticies[] = {
+            {QVector3D(0, 0, 0.0f), QVector2D(u, v)},
+            {QVector3D(size, 0, 0.0f), QVector2D(u + sixteenth, v)},
+            {QVector3D(0, size, 0.0f), QVector2D(u, v + sixteenth)},
+            {QVector3D(size, size, 0.0f), QVector2D(u + sixteenth, v + sixteenth)},
+        };
+
+        GLushort indicies[] = {
+            0, 1, 2, 3, 3
+        };
+
+        m_GlFuncs = window()->openglContext()->versionFunctions<QOpenGLFunctions_2_0>();
         if (!m_GlFuncs)
         {
             qWarning() << "Could not obtain required OpenGL context version";
@@ -62,17 +79,20 @@ void Tilemap::draw()
         }
         m_GlFuncs->initializeOpenGLFunctions();
 
-        m_GlFuncs->glGenBuffers (1, &vbo);
-        m_GlFuncs->glBindBuffer (GL_ARRAY_BUFFER, vbo);
-        m_GlFuncs->glBufferData (GL_ARRAY_BUFFER, 12 * sizeof (float), &points[0], GL_STATIC_DRAW);
+        m_GlFuncs->glGenBuffers (2, m_vboIds);
 
-        m_GlFuncs->glGenVertexArrays(1, &m_tileVao);
-        m_GlFuncs->glBindVertexArray(m_tileVao);
-        m_GlFuncs->glEnableVertexAttribArray(0);
-        m_GlFuncs->glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        m_GlFuncs->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte*)NULL);
+        m_GlFuncs->glBindBuffer (GL_ARRAY_BUFFER, m_vboIds[0]);
+        m_GlFuncs->glBufferData (GL_ARRAY_BUFFER, 4 * sizeof(VertexData), verticies, GL_STATIC_DRAW);
 
-        m_GlFuncs->glBindBuffer (GL_ARRAY_BUFFER, 0);// QQuick gets bitchy if we dont do this.
+        m_GlFuncs->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vboIds[1]);
+        m_GlFuncs->glBufferData (GL_ELEMENT_ARRAY_BUFFER, 5 * sizeof(GLushort), indicies, GL_STATIC_DRAW);
+
+        m_GlFuncs->glEnable(GL_TEXTURE_2D);
+    }
+    else
+    {
+        m_GlFuncs->glBindBuffer(GL_ARRAY_BUFFER, m_vboIds[0]);
+        m_GlFuncs->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vboIds[1]);
     }
     QOpenGLShaderProgram *shader = m_material->shader()->shader();
     shader->bind();
@@ -80,11 +100,14 @@ void Tilemap::draw()
     QSGTexture *texture = m_material->texture()->texture();
     m_GlFuncs->glActiveTexture(GL_TEXTURE0);
     texture->bind();
-    shader->setUniformValue("texture", texture->textureId());
+    GLuint textureId = texture->textureId();// does not bloody work!
+    textureId--;//XXX: HACK! ^^^
+
+    shader->setUniformValue("texture", textureId);
 
     QMatrix4x4 modelMatrix;
     modelMatrix.setToIdentity();
-    modelMatrix.translate(64, 64, 0);
+    modelMatrix.translate(0, 0, 0);
     shader->setUniformValue("modelMatrix", modelMatrix);
 
     QMatrix4x4 viewMatrix;
@@ -96,16 +119,27 @@ void Tilemap::draw()
     projectionMatrix.ortho(0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f);
     shader->setUniformValue("projectionMatrix", projectionMatrix);
 
+    quintptr offset = 0;
+
+    int vertexLocation = shader->attributeLocation("position");
+    shader->enableAttributeArray(vertexLocation);
+    m_GlFuncs->glVertexAttribPointer(vertexLocation, 3, GL_FLOAT, GL_FALSE, sizeof(VertexData), (const void *)offset);
+
+    offset +=sizeof(QVector3D);
+
+    int texcoordLocation = shader->attributeLocation("texturePosition");
+    shader->enableAttributeArray(texcoordLocation);
+    m_GlFuncs->glVertexAttribPointer(texcoordLocation, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData), (const void *)offset);
+
     m_GlFuncs->glClearColor(1, 0, 0, 1);
     m_GlFuncs->glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    m_GlFuncs->glBindVertexArray (m_tileVao);
-    m_GlFuncs->glDrawArrays (GL_TRIANGLE_STRIP, 0, 4);
+    m_GlFuncs->glDrawElements(GL_TRIANGLE_STRIP, 5, GL_UNSIGNED_SHORT, 0);
 
-    m_GlFuncs->glBindVertexArray (0);
+    m_GlFuncs->glBindBuffer(GL_ARRAY_BUFFER, 0);// QQuick gets bitchy if we dont do this.
+    m_GlFuncs->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);// QQuick gets bitchy if we dont do this.
     m_GlFuncs->glActiveTexture(0);
     shader->release();
-
 }
 
 void Tilemap::componentComplete()

@@ -4,11 +4,11 @@
 #include <QQuickItem>
 #include <QtGui/QOpenGLShaderProgram>
 #include <QGLFunctions>
-#include <QOpenGLFunctions_3_0>
+#include <QOpenGLFunctions_2_0>
 
 class Material;
 
-class Tilemap : public QQuickItem, protected QGLFunctions
+class Tilemap : public QQuickItem, public QGLFunctions
 {
     Q_OBJECT
     Q_PROPERTY(Material *material MEMBER m_material NOTIFY materialChanged);
@@ -18,9 +18,11 @@ public:
 
 private:
     Material *m_material;
-    QOpenGLShaderProgram* m_program;
+    QOpenGLShaderProgram *m_program;
     GLuint m_tileVao;
-    QOpenGLFunctions_3_0 *m_GlFuncs;
+    GLuint m_vboIds[2];
+
+    QOpenGLFunctions_2_0 *m_GlFuncs;
 protected:
     virtual void componentComplete();
     

@@ -20,7 +20,7 @@ void Scene::m_initialiseOpenGl()
 {
     if(m_resources->shaderManager() != NULL)
     {
-        m_resources->shaderManager()->initialiseShaders();
         m_resources->textureManager()->loadTextures(window());
+        m_resources->shaderManager()->initialiseShaders();
     }
 }
