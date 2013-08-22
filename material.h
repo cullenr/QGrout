@@ -19,6 +19,9 @@ public:
     ShaderAsset *shader() const;
     TextureAsset *texture() const;
 
+    virtual void bind(QMatrix4x4 &mvpMatrix);
+    virtual void release();
+
 private:
     ShaderAsset *m_shader;
     TextureAsset *m_texture;

@@ -13,17 +13,17 @@ void AssetManager::setMaterialManager(MaterialManager *materialManager)
     m_materialManager->setTextureManager(m_textureManager);
 }
 
-ShaderAssetManager * AssetManager::shaderManager()
+ShaderAssetManager* AssetManager::shaderManager()
 {
     return m_shaderManager;
 }
 
-TextureAssetManager * AssetManager::textureManager()
+TextureAssetManager* AssetManager::textureManager()
 {
     return m_textureManager;
 }
 
-MaterialManager * AssetManager::materialManager()
+MaterialManager* AssetManager::materialManager()
 {
     return m_materialManager;
 }

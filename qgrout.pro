@@ -25,7 +25,11 @@ SOURCES += main.cpp \
     textureasset.cpp \
     genericmanager.cpp \
     materialmanager.cpp \
-    material.cpp
+    material.cpp \
+    tilestrip.cpp \
+    initialisationvisitor.cpp \
+    drawvisitor.cpp \
+    mesh.cpp
 
 # Installation path
 # target.path =
@@ -45,7 +49,16 @@ HEADERS += \
     textureasset.h \
     genericmanager.h \
     materialmanager.h \
-    material.h
+    material.h \
+    vertexdata.h \
+    tilestrip.h \
+    visitee.h \
+    visitor.h \
+    initialisationvisitor.h \
+    drawvisitor.h \
+    mesh.h
 
 RESOURCES += test_assets.qrc \
     shaders.qrc
+
+CONFIG += c++11

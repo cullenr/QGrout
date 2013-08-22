@@ -33,7 +33,7 @@ void GameWindow::handleSceneGraphInitialized()
 //    funcs->initializeOpenGLFunctions();
 //    funcs->glDisable(GL_DEPTH);
 
-    glDisable(GL_DEPTH);
+//    glDisable(GL_DEPTH);
 }
 
 GameWindow::~GameWindow()
