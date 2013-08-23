@@ -10,7 +10,7 @@ class DrawVisitor : public Visitor
 public:
     DrawVisitor();
 
-    void visit(Tilemap &tilemap);
+    void visit(TileMap &tilemap);
 
     QMatrix4x4 projectionViewMatrix() const;
     void setProjectionViewMatrix(const QMatrix4x4 &projectionViewMatrix);

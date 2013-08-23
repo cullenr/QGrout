@@ -1,6 +1,7 @@
 #include <QtGui/QGuiApplication>
 #include "gamewindow.h"
 #include "tilemap.h"
+#include "tilesheet.h"
 #include "shaderassetmanager.h"
 #include "shaderasset.h"
 #include "textureassetmanager.h"
@@ -25,7 +26,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<Scene>("QGrout", major, minor, "Scene");
     qmlRegisterType<Material>("QGrout", major, minor, "Material");
     qmlRegisterType<MaterialManager>("QGrout", major, minor, "MaterialManager");
-    qmlRegisterType<Tilemap>("QGrout", major, minor, "Tilemap");
+    qmlRegisterType<TileSheet>("QGrout", major, minor, "TileSheet");
+    qmlRegisterType<TileMap>("QGrout", major, minor, "TileMap");
 
     GameWindow viewer;
     viewer.rootContext()->setContextProperty("Window", &viewer);

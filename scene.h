@@ -12,7 +12,7 @@ class Scene : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(AssetManager* resources MEMBER m_resources)
-    Q_PROPERTY(Tilemap* tilemap MEMBER m_tilemap)
+    Q_PROPERTY(TileMap* tilemap MEMBER m_tilemap)
 
 public:
     explicit Scene(QQuickItem *parent = 0);
@@ -24,7 +24,7 @@ private slots:
 
 private:
     AssetManager *m_resources;
-    Tilemap *m_tilemap;
+    TileMap *m_tilemap;
 
     InitialisationVisitor m_initialisationVisitor;
     DrawVisitor m_drawVisitor;

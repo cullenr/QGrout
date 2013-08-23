@@ -29,7 +29,8 @@ SOURCES += main.cpp \
     tilestrip.cpp \
     initialisationvisitor.cpp \
     drawvisitor.cpp \
-    mesh.cpp
+    mesh.cpp \
+    tilesheet.cpp
 
 # Installation path
 # target.path =
@@ -56,7 +57,8 @@ HEADERS += \
     visitor.h \
     initialisationvisitor.h \
     drawvisitor.h \
-    mesh.h
+    mesh.h \
+    tilesheet.h
 
 RESOURCES += test_assets.qrc \
     shaders.qrc

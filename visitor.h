@@ -1,11 +1,11 @@
 #ifndef VISITOR_H
 #define VISITOR_H
 
-class Tilemap;
+class TileMap;
 
 struct Visitor
 {
-    virtual void visit(Tilemap &) = 0;
+    virtual void visit(TileMap &) = 0;
 };
 
 #endif // VISITOR_H

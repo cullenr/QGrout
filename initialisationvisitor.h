@@ -8,7 +8,7 @@ class InitialisationVisitor : public Visitor
 public:
     InitialisationVisitor();
 
-    void visit(Tilemap &) override;
+    void visit(TileMap &) override;
 };
 
 #endif // INITIALISATIONVISITOR_H

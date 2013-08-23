@@ -45,8 +45,7 @@ Item{
             text: qsTr("text")
         }
 
-        tilemap: Tilemap {
-            material: textureMaterial
+        tilemap: TileMap {
             mapWidth: 10
             map: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                   1, 2, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -56,6 +55,11 @@ Item{
                   1, 0, 0, 0, 0, 6, 0, 0, 0, 1,
                   1, 0, 0, 0, 0, 0, 7, 0, 0, 1,
                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+            tileSheet: TileSheet {
+                material: textureMaterial
+                tilesAcross: 16
+                tilesSize: 32
+            }
         }
 
     }
