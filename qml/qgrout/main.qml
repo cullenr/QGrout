@@ -42,10 +42,12 @@ Item{
 
         Text {
             id: blasd
-            text: qsTr("text")
+            text: sceneOne.cameraPosition.x + sceneOne.cameraPosition.y
         }
 
+
         tilemap: TileMap {
+
             mapWidth: 10
             map: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                   1, 2, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -60,7 +62,13 @@ Item{
                 tilesAcross: 16
                 tilesSize: 32
             }
+
         }
+        focus: true
+        Keys.onUpPressed: sceneOne.cameraPosition.y -= 1
+        Keys.onDownPressed: sceneOne.cameraPosition.y += 1
+        Keys.onLeftPressed: sceneOne.cameraPosition.x += 1
+        Keys.onRightPressed: sceneOne.cameraPosition.x -= 1
 
     }
 }

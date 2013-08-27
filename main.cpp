@@ -10,6 +10,7 @@
 #include "textureasset.h"
 #include "material.h"
 #include "materialmanager.h"
+#include "actor.h"
 #include <QtQml/QQmlContext>
 
 int main(int argc, char *argv[])
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<MaterialManager>("QGrout", major, minor, "MaterialManager");
     qmlRegisterType<TileSheet>("QGrout", major, minor, "TileSheet");
     qmlRegisterType<TileMap>("QGrout", major, minor, "TileMap");
+    qmlRegisterType<Actor>("QGrout", major, minor, "Actor");
 
     GameWindow viewer;
     viewer.rootContext()->setContextProperty("Window", &viewer);

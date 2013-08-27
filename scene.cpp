@@ -1,7 +1,7 @@
 #include "scene.h"
-#include <QtDebug>
 #include "shaderassetmanager.h"
 #include "textureassetmanager.h"
+#include "actor.h"
 
 Scene::Scene(QQuickItem *parent) :
     QQuickItem(parent)
@@ -35,5 +35,19 @@ void Scene::initialiseOpenGl()
 
 void Scene::draw()
 {
-    m_tilemap->accept(m_drawVisitor);
+    QMatrix4x4 viewMatrix;
+    viewMatrix.setToIdentity();
+    viewMatrix.translate(m_cameraPosition.x(), m_cameraPosition.y());
+
+    QMatrix4x4 projectionMatrix;
+    projectionMatrix.setToIdentity();
+    projectionMatrix.ortho(0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f); // put this in the tilemap, we should be able to have several seperate tilemaps with their own projection and viewport
+
+    m_updateVsisitor.setViewMatrix(viewMatrix);
+    m_updateVsisitor.setProjectionMatrix(projectionMatrix);
+
+    m_tilemap->accept(m_updateVsisitor);
+
+    for(Actor *actor : m_actors)
+        actor->accept(m_updateVsisitor);
 }

@@ -5,13 +5,13 @@
 #include <QGLFunctions>
 #include <QVector>
 
+#include "visitee.h"
 #include "mesh.h"
 
 class Visitor;
 class TileSheet;
-class QOpenGLShaderProgram;
 
-class TileMap : public QQuickItem, public QGLFunctions
+class TileMap : public QQuickItem, public QGLFunctions, public Visitee
 {
     Q_OBJECT
     Q_PROPERTY(TileSheet * tileSheet MEMBER m_tileSheet);
@@ -25,13 +25,16 @@ public:
     void accept(Visitor &visitor);
 
     TileSheet* tileSheet() const;
+
     QList<int> map() const;
+
     int mapWidth() const;
+
     int tileSize() const;
+
     QVector<Mesh> rows() const;
     void setRows(const QVector<Mesh> &rows);
 
-    void componentComplete() override;
 private:
     QVector<Mesh> m_rows;
     TileSheet *m_tileSheet;

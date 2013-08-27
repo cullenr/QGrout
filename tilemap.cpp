@@ -6,7 +6,7 @@
 #include "vertexdata.h"
 #include "visitor.h"
 #include "initialisationvisitor.h"
-#include "drawvisitor.h"
+#include "updatevisitor.h"
 
 #include <QtQuick/qquickwindow.h>
 #include <QtGui/QOpenGLShaderProgram>
@@ -54,11 +54,6 @@ int TileMap::tileSize() const
     return m_tileSize;
 }
 
-void TileMap::componentComplete()
-{
-    qDebug("bolliks");
-}
-
 void InitialisationVisitor::visit(TileMap &tilemap)
 {
     const QList<int> map = tilemap.map();
@@ -71,6 +66,7 @@ void InitialisationVisitor::visit(TileMap &tilemap)
 
     for(int i = 0; i < mapHeight; i++)
     {
+        const int vertexY = i * tilesize;
 
         VertexData verticies[mapWidth * 4];
         GLushort indicies[mapWidth * 6 - 2];
@@ -91,13 +87,13 @@ void InitialisationVisitor::visit(TileMap &tilemap)
             const int vertexX = j * tilesize;
             const int baseIndex = j * 4;
 
-            verticies[verticiesIndex++] = { QVector2D(vertexX, 0),
+            verticies[verticiesIndex++] = { QVector2D(vertexX, vertexY),
                                             QVector2D(s, t)};
-            verticies[verticiesIndex++] = { QVector2D(vertexX + tilesize, 0),
+            verticies[verticiesIndex++] = { QVector2D(vertexX + tilesize, vertexY),
                                             QVector2D(s + tileWidthReciprocal, t)};
-            verticies[verticiesIndex++] = { QVector2D(vertexX, tilesize),
+            verticies[verticiesIndex++] = { QVector2D(vertexX, vertexY + tilesize),
                                             QVector2D(s, t + tileWidthReciprocal)};
-            verticies[verticiesIndex++] = { QVector2D(vertexX + tilesize, tilesize),
+            verticies[verticiesIndex++] = { QVector2D(vertexX + tilesize, vertexY + tilesize),
                                             QVector2D(s + tileWidthReciprocal, t + tileWidthReciprocal)};
 
             indicies[indiciesIndex++] = baseIndex;
@@ -135,7 +131,7 @@ void InitialisationVisitor::visit(TileMap &tilemap)
 }
 
 
-void DrawVisitor::visit(TileMap &tilemap)
+void UpdateVisitor::visit(TileMap &tilemap)
 {
     QOpenGLFunctions gl(QOpenGLContext::currentContext());
     int start = 0;//TODO : THESE NEED TO BE CALCULATED BASED UPON THE VIEW MATRIX
@@ -144,6 +140,7 @@ void DrawVisitor::visit(TileMap &tilemap)
 
     glClearColor(1.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT  | GL_DEPTH_BUFFER_BIT);
+
     for(Mesh row : tilemap.rows())
     {
         gl.glBindBuffer(GL_ARRAY_BUFFER, row.buffers()[0]);
@@ -151,19 +148,10 @@ void DrawVisitor::visit(TileMap &tilemap)
 
         QMatrix4x4 modelMatrix;
         modelMatrix.setToIdentity();
-        modelMatrix.translate(0, i++ * 64, 0);
-        modelMatrix.scale(2);
+        modelMatrix.translate(0, 0, 0);
+        modelMatrix.scale(1);
 
-//        QMatrix4x4 mvp = m_projectionViewMatrix * modelMatrix;
-
-                    QMatrix4x4 viewMatrix;
-                    viewMatrix.setToIdentity();
-
-                    QMatrix4x4 projectionMatrix;
-                    projectionMatrix.setToIdentity();
-                    projectionMatrix.ortho(0.0f, 640.0f, 480.0f, 0.0f, 0.0f, 1.0f);
-
-                    QMatrix4x4 mvp = projectionMatrix * viewMatrix * modelMatrix;
+        QMatrix4x4 mvp = m_projectionMatrix * m_viewMatrix * modelMatrix;
 
         tilemap.tileSheet()->material()->bind(mvp);
 

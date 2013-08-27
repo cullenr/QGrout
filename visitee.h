@@ -3,9 +3,10 @@
 
 class Visitor;
 
-class
+class Visitee
 {
-    void accept(Visitor &visitor);
+public:
+    virtual void accept(Visitor &visitor) = 0;
 };
 
 #endif // VISITEE_H

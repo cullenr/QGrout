@@ -26,11 +26,13 @@ SOURCES += main.cpp \
     genericmanager.cpp \
     materialmanager.cpp \
     material.cpp \
-    tilestrip.cpp \
     initialisationvisitor.cpp \
-    drawvisitor.cpp \
     mesh.cpp \
-    tilesheet.cpp
+    tilesheet.cpp \
+    actor.cpp \
+    updatevisitor.cpp \
+    spritecomponent.cpp \
+    assetcreatedevent.cpp
 
 # Installation path
 # target.path =
@@ -52,13 +54,15 @@ HEADERS += \
     materialmanager.h \
     material.h \
     vertexdata.h \
-    tilestrip.h \
     visitee.h \
     visitor.h \
     initialisationvisitor.h \
-    drawvisitor.h \
     mesh.h \
-    tilesheet.h
+    tilesheet.h \
+    actor.h \
+    updatevisitor.h \
+    spritecomponent.h \
+    assetcreatedevent.h
 
 RESOURCES += test_assets.qrc \
     shaders.qrc
