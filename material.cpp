@@ -32,7 +32,7 @@ void Material::bind(QMatrix4x4 &mvpMatrix)//TODO : CONSIDER MSKING THIS A FREE F
 
     shader->bind();
 
-    glActiveTexture(GL_TEXTURE0);
+    gl.glActiveTexture(GL_TEXTURE0);
     texture->bind();
     GLuint textureId = texture->textureId();// does not bloody work!
     textureId--;//XXX: HACK! ^^^
@@ -58,7 +58,7 @@ void Material::release()
 {
     QOpenGLShaderProgram *shader = m_shader->shader();
 
-    glActiveTexture(0);
+    QOpenGLContext::currentContext()->functions()->glActiveTexture(0);
 
     shader->disableAttributeArray("position");
     shader->disableAttributeArray("texturePosition");
