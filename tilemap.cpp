@@ -136,7 +136,6 @@ void UpdateVisitor::visit(TileMap &tilemap)
     QOpenGLFunctions gl(QOpenGLContext::currentContext());
     int start = 0;//TODO : THESE NEED TO BE CALCULATED BASED UPON THE VIEW MATRIX
     int span = tilemap.mapWidth() * 6 - 2;
-    int i = 0;
 
     glClearColor(1.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT  | GL_DEPTH_BUFFER_BIT);

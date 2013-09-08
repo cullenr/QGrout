@@ -23,7 +23,6 @@ SOURCES += main.cpp \
     textureassetmanager.cpp \
     shaderasset.cpp \
     textureasset.cpp \
-    genericmanager.cpp \
     materialmanager.cpp \
     material.cpp \
     initialisationvisitor.cpp \
@@ -32,7 +31,10 @@ SOURCES += main.cpp \
     actor.cpp \
     updatevisitor.cpp \
     spritecomponent.cpp \
-    assetcreatedevent.cpp
+    assetcreatedevent.cpp \
+    assetinitialisationvisitor.cpp \
+    gameapplication.cpp \
+    gobject.cpp
 
 # Installation path
 # target.path =
@@ -50,7 +52,6 @@ HEADERS += \
     textureassetmanager.h \
     shaderasset.h \
     textureasset.h \
-    genericmanager.h \
     materialmanager.h \
     material.h \
     vertexdata.h \
@@ -62,7 +63,12 @@ HEADERS += \
     actor.h \
     updatevisitor.h \
     spritecomponent.h \
-    assetcreatedevent.h
+    assetcreatedevent.h \
+    abstractasset.h \
+    assetvisitor.h \
+    assetinitialisationvisitor.h \
+    gameapplication.h \
+    gobject.h
 
 RESOURCES += test_assets.qrc \
     shaders.qrc

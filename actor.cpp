@@ -4,7 +4,7 @@
 #include "updatevisitor.h"
 
 Actor::Actor(QObject *parent) :
-    QObject(parent)
+    GObject(parent)
 {
 }
 

@@ -1,13 +1,12 @@
 #ifndef SPRITECOMPONENT_H
 #define SPRITECOMPONENT_H
 
-#include <QObject>
-
+#include "gobject.h"
 #include "visitee.h"
 
 class Material;
 
-class SpriteComponent : public QObject, public Visitee
+class SpriteComponent : public GObject, public Visitee
 {
     Q_OBJECT
     Q_PROPERTY(Material *material MEMBER m_material);

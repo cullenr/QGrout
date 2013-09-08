@@ -6,7 +6,7 @@
 #include <locale.h>
 
 ShaderAssetManager::ShaderAssetManager(QObject *parent) :
-    QObject(parent)
+    GObject(parent)
 {
 }
 

@@ -18,6 +18,7 @@ class Scene : public QQuickItem
 
 public:
     explicit Scene(QQuickItem *parent = 0);
+    bool event(QEvent *event) override;
 
 signals:
     void cameraPositionUpdated(QVector2D position);
@@ -28,6 +29,8 @@ private slots:
     void draw();
 
 private:
+//    bool eventFilter(QObject *object, QEvent *event);
+
     AssetManager *m_resources;
     TileMap *m_tilemap;
 

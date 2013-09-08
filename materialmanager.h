@@ -1,14 +1,14 @@
 #ifndef MATERIALMANAGER_H
 #define MATERIALMANAGER_H
 
-#include <QObject>
-#include "genericmanager.h"
+#include <QQmlListProperty>
+#include "gobject.h"
 #include "material.h"
 
 class TextureAssetManager;
 class ShaderAssetManager;
 
-class MaterialManager : public QObject
+class MaterialManager : public GObject
 {
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<Material> sources READ sourcesQmlList() NOTIFY sourcesUpdated);

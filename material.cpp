@@ -8,7 +8,7 @@
 #include <QSGTexture>
 
 Material::Material(QObject *parent) :
-    QObject(parent),
+    GObject(parent),
     m_shader(0),
     m_texture(0)
 {
@@ -28,15 +28,19 @@ void Material::bind(QMatrix4x4 &mvpMatrix)//TODO : CONSIDER MSKING THIS A FREE F
 {
     QOpenGLFunctions gl(QOpenGLContext::currentContext());
     QOpenGLShaderProgram *shader = m_shader->shader();
-    QSGTexture *texture = m_texture->texture();
+    //QSGTexture *texture = m_texture->texture();
+    GLuint textId = m_texture->glTextureId();
 
     shader->bind();
 
     gl.glActiveTexture(GL_TEXTURE0);
-    texture->bind();
-    GLuint textureId = texture->textureId();// does not bloody work!
-    textureId--;//XXX: HACK! ^^^
-    shader->setUniformValue("texture", textureId);
+//    texture->bind();
+    glBindTexture(GL_TEXTURE_2D, textId);
+
+//    GLuint textureId = texture->textureId();// does not bloody work!
+//    textureId--;//XXX: HACK! ^^^
+//    shader->setUniformValue("texture", textureId);
+    shader->setUniformValue("texture", 0);
 
     shader->setUniformValue("mvp", mvpMatrix);//Could use double dispatch to set these values if we want a nice type safe extensible solution
 
@@ -59,6 +63,8 @@ void Material::release()
     QOpenGLShaderProgram *shader = m_shader->shader();
 
     QOpenGLContext::currentContext()->functions()->glActiveTexture(0);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     shader->disableAttributeArray("position");
     shader->disableAttributeArray("texturePosition");

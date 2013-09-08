@@ -2,10 +2,10 @@
 #define ACTOR_H
 
 #include <QMatrix4x4>
-#include <QObject>
+#include "gobject.h"
 #include "visitee.h"
 
-class Actor : public QObject, public Visitee
+class Actor : public GObject, public Visitee
 {
     Q_OBJECT
     Q_PROPERTY(QList<Visitee *> components MEMBER m_components)

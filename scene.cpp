@@ -1,13 +1,41 @@
+#include <QCoreApplication>
 #include "scene.h"
 #include "shaderassetmanager.h"
 #include "textureassetmanager.h"
 #include "actor.h"
+#include "assetcreatedevent.h"
 
 Scene::Scene(QQuickItem *parent) :
     QQuickItem(parent)
 {
     connect(this, SIGNAL(windowChanged(QQuickWindow*)), this, SLOT(handleWindowChanged(QQuickWindow*)));
+
+//    QCoreApplication::instance()->installEventFilter(this);
 }
+
+bool Scene::event(QEvent *event)
+{
+    if(event->type() == AssetCreatedEvent::AssetCreatedType)
+    {
+        qDebug("Asset Created Event Received processed");
+
+        return false;
+    }
+
+    return QQuickItem::event(event);
+}
+
+//bool Scene::eventFilter(QObject *object, QEvent *event)
+//{
+//    if(event->type() == AssetCreatedEvent::AssetCreatedType)
+//    {
+//        qDebug("Asset Created Event Received");
+
+//        return false;
+//    }
+
+//    return false;
+//}
 
 void Scene::handleWindowChanged(QQuickWindow *window)
 {

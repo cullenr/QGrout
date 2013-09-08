@@ -4,7 +4,7 @@
 #include "initialisationvisitor.h"
 
 SpriteComponent::SpriteComponent(QObject *parent) :
-    QObject(parent)
+    GObject(parent)
 {
 }
 

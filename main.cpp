@@ -1,4 +1,4 @@
-#include <QtGui/QGuiApplication>
+#include "gameapplication.h"
 #include "gamewindow.h"
 #include "tilemap.h"
 #include "tilesheet.h"
@@ -12,10 +12,11 @@
 #include "materialmanager.h"
 #include "actor.h"
 #include <QtQml/QQmlContext>
+#include "gobject.h"
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    GameApplication app(argc, argv);
     const int major = 1;
     const int minor = 0;
 
@@ -37,4 +38,5 @@ int main(int argc, char *argv[])
     viewer.showExpanded();
 
     return app.exec();
+
 }

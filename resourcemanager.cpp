@@ -2,7 +2,7 @@
 #include "materialmanager.h"
 
 AssetManager::AssetManager(QObject *parent) :
-    QObject(parent)
+    GObject(parent)
 {
 }
 

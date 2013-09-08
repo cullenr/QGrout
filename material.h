@@ -1,14 +1,14 @@
 #ifndef MATERIALSOURCE_H
 #define MATERIALSOURCE_H
 
-#include <QObject>
 #include <QStringList>
 #include <QString>
+#include "gobject.h"
 
 class TextureAsset;
 class ShaderAsset;
 
-class Material : public QObject
+class Material : public GObject
 {
     Q_OBJECT
     Q_PROPERTY(ShaderAsset *shader MEMBER m_shader);

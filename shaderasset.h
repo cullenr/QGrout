@@ -1,11 +1,13 @@
 #ifndef SHADERASSET_H
 #define SHADERASSET_H
 
-#include <QObject>
+#include "gobject.h"
+#include "abstractasset.h"
 
 class QOpenGLShaderProgram;
+class AssetVisitor;
 
-class ShaderAsset : public QObject
+class ShaderAsset : public GObject, public AbstractAsset
 {
     Q_OBJECT
     Q_PROPERTY(QString fragmentShaderPath MEMBER m_fragmentShaderPath);
@@ -18,6 +20,11 @@ public:
     QOpenGLShaderProgram* shader() const;
 
     bool compile();
+
+    //AbstractAsset
+    void accept(AssetVisitor &visitor) override;
+    void classBegin() override;
+    void componentComplete() override;
 
 private:
     QOpenGLShaderProgram *m_shader;

@@ -1,11 +1,11 @@
 #ifndef TEXTUREASSET_H
 #define TEXTUREASSET_H
 
-#include <QObject>
+#include <qopengl.h>
+#include "gobject.h"
+#include "abstractasset.h"
 
-class QSGTexture;
-
-class TextureAsset : public QObject
+class TextureAsset : public GObject, public AbstractAsset
 {
     Q_OBJECT
     Q_PROPERTY(QString texturePath MEMBER m_texturePath)
@@ -13,14 +13,19 @@ class TextureAsset : public QObject
 
 public:
     explicit TextureAsset(QObject *parent = 0);
-    
+
     const QString texturePath() const;
-    QSGTexture *texture() const;
-    void setTexture(QSGTexture *texture);
+    const GLuint glTextureId() const;
+    void setGlTextureId(const GLuint &glTextureId);
+
+    //AbstractAsset
+    void accept(AssetVisitor &visitor) override;
+    void classBegin() override;
+    void componentComplete() override;
 
 private:
+    GLuint m_glTextureId;
     QString m_texturePath;
-    QSGTexture *m_texture;
 };
 
 #endif // TEXTUREASSET_H

@@ -1,7 +1,7 @@
 #include "materialmanager.h"
 
 MaterialManager::MaterialManager(QObject *parent) :
-    QObject(parent)
+    GObject(parent)
 {
 }
 

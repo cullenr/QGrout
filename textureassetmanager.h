@@ -1,14 +1,14 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
-#include <QObject>
 #include <QQuickWindow>
 #include <QList>
 #include <QQmlListProperty>
 #include <QString>
+#include "gobject.h"
 #include "textureasset.h"
 
-class TextureAssetManager : public QObject
+class TextureAssetManager : public GObject
 {
     Q_OBJECT
 
