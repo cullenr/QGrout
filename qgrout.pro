@@ -34,7 +34,8 @@ SOURCES += main.cpp \
     assetcreatedevent.cpp \
     assetinitialisationvisitor.cpp \
     gameapplication.cpp \
-    gobject.cpp
+    gobject.cpp \
+    gquickitem.cpp
 
 # Installation path
 # target.path =
@@ -68,7 +69,8 @@ HEADERS += \
     assetvisitor.h \
     assetinitialisationvisitor.h \
     gameapplication.h \
-    gobject.h
+    gobject.h \
+    gquickitem.h
 
 RESOURCES += test_assets.qrc \
     shaders.qrc

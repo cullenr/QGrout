@@ -11,8 +11,7 @@ bool GObject::event(QEvent *event)
 {
     if(event->type() == AssetCreatedEvent::AssetCreatedType)
     {
-        qDebug("Asset Created Event Received processed");
-
+        //propogate event by default
         return false;
     }
 

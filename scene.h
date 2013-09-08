@@ -5,10 +5,9 @@
 #include "tilemap.h"
 #include "initialisationvisitor.h"
 #include "updatevisitor.h"
+#include "gquickitem.h"
 
-#include <QQuickItem>
-
-class Scene : public QQuickItem
+class Scene : public GQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(AssetManager* resources MEMBER m_resources)
