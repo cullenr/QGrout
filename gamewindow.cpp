@@ -23,20 +23,20 @@ GameWindow::GameWindow(QWindow *parent)
 
     connect(this, SIGNAL(sceneGraphInitialized()), this, SLOT(handleSceneGraphInitialized()));
 
-//    QCoreApplication::instance()->installEventFilter(this);
+    QCoreApplication::instance()->installEventFilter(this);
 }
 
-//bool GameWindow::eventFilter(QObject *object, QEvent *event)
-//{
-//    if(event->type() == AssetCreatedEvent::AssetCreatedType)
-//    {
-//        qDebug("Asset Created Event Received");
+bool GameWindow::eventFilter(QObject *object, QEvent *event)
+{
+    if(event->type() == AssetCreatedEvent::AssetCreatedType)
+    {
+        qDebug("Asset Created Event Received");
 
-//        return false;
-//    }
+        return false;
+    }
 
-//    return false;
-//}
+    return false;
+}
 void GameWindow::handleSceneGraphInitialized()
 {
 //    QOpenGLFunctions_3_0 *funcs = openglContext()->versionFunctions<QOpenGLFunctions_3_0>();

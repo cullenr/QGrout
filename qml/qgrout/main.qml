@@ -7,6 +7,7 @@ Item{
 
     Scene{
         id: sceneOne
+
         resources: ResourceManager {
             textures: TextureAssetManager {
                 TextureAsset{
@@ -41,13 +42,22 @@ Item{
         }
 
         Text {
-            id: blasd
+            id: testText
             text: sceneOne.cameraPosition.x + sceneOne.cameraPosition.y
+            scale: 4
         }
 
+        TextureAsset{
+            id: minecraftTiles2
+            texturePath: ":/test/assets/minecraft_tilesheet.png"
+        }
 
         tilemap: TileMap {
-
+            ShaderAsset {
+                id: texture2
+                vertexShaderPath: ":/shaders/assets/shaders/texture.vert"
+                fragmentShaderPath: ":/shaders/assets/shaders/texture.frag"
+            }
             mapWidth: 10
             map: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                   1, 2, 0, 0, 0, 0, 0, 0, 0, 1,

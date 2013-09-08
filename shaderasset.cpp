@@ -5,30 +5,19 @@
 #include "assetcreatedevent.h"
 
 ShaderAsset::ShaderAsset(QObject *parent) :
-    GObject(parent),
-    m_shader(0)
+    AbstractAsset(parent),
+    m_shader(nullptr)
 {
-}
-
-void ShaderAsset::accept(AssetVisitor &visitor)
-{
-    visitor.visit(*this);
-}
-
-void ShaderAsset::classBegin()
-{
-    //not used
-}
-
-void ShaderAsset::componentComplete()
-{
-    //new asset gets deleted by the even system
-    QCoreApplication::postEvent(parent(), new AssetCreatedEvent());
 }
 
 ShaderAsset::~ShaderAsset()
 {
     delete(m_shader);
+}
+
+void ShaderAsset::accept(AssetVisitor &visitor)
+{
+    visitor.visit(*this);
 }
 
 QOpenGLShaderProgram *ShaderAsset::shader() const

@@ -7,7 +7,7 @@
 class QOpenGLShaderProgram;
 class AssetVisitor;
 
-class ShaderAsset : public GObject, public AbstractAsset
+class ShaderAsset : public AbstractAsset
 {
     Q_OBJECT
     Q_PROPERTY(QString fragmentShaderPath MEMBER m_fragmentShaderPath);
@@ -17,14 +17,10 @@ public:
     explicit ShaderAsset(QObject *parent = 0);
     ~ShaderAsset();
 
-    QOpenGLShaderProgram* shader() const;
-
+    void accept(AssetVisitor &visitor) override;
     bool compile();
 
-    //AbstractAsset
-    void accept(AssetVisitor &visitor) override;
-    void classBegin() override;
-    void componentComplete() override;
+    QOpenGLShaderProgram* shader() const;
 
 private:
     QOpenGLShaderProgram *m_shader;

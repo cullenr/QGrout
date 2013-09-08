@@ -4,7 +4,8 @@
 #include "assetvisitor.h"
 
 TextureAsset::TextureAsset(QObject *parent) :
-    GObject(parent)
+    AbstractAsset(parent),
+    m_glTextureId(-1)
 {
 }
 
@@ -13,21 +14,7 @@ void TextureAsset::accept(AssetVisitor &visitor)
     visitor.visit(*this);
 }
 
-void TextureAsset::classBegin()
-{
-    //not used
-}
-
-void TextureAsset::componentComplete()
-{
-    //new asset gets deleted by the even system
-
-    QObject *p = parent();
-
-    QCoreApplication::postEvent(parent(), new AssetCreatedEvent());
-}
-
-const GLuint TextureAsset::glTextureId() const
+GLuint TextureAsset::glTextureId() const
 {
     return m_glTextureId;
 }

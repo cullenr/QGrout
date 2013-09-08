@@ -9,15 +9,17 @@ Scene::Scene(QQuickItem *parent) :
     GQuickItem(parent)
 {
     connect(this, SIGNAL(windowChanged(QQuickWindow*)), this, SLOT(handleWindowChanged(QQuickWindow*)));
-
-//    QCoreApplication::instance()->installEventFilter(this);
 }
 
 bool Scene::event(QEvent *event)
 {
     if(event->type() == AssetCreatedEvent::AssetCreatedType)
     {
-        qDebug("Asset Created Event Received processed");
+        AssetCreatedEvent *assetEvent = static_cast<AssetCreatedEvent *>(event);
+
+        m_assets.append(assetEvent->asset());
+
+        qDebug("Yippee");
 
         return false;
     }
@@ -25,17 +27,6 @@ bool Scene::event(QEvent *event)
     return QQuickItem::event(event);
 }
 
-//bool Scene::eventFilter(QObject *object, QEvent *event)
-//{
-//    if(event->type() == AssetCreatedEvent::AssetCreatedType)
-//    {
-//        qDebug("Asset Created Event Received");
-
-//        return false;
-//    }
-
-//    return false;
-//}
 
 void Scene::handleWindowChanged(QQuickWindow *window)
 {

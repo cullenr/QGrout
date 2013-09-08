@@ -13,10 +13,8 @@ bool GameApplication::notify(QObject *object, QEvent *event)
     {
         qDebug("notify override");
 
-        event->ignore();
-        bool ret = object->event(event);
-        event->ignore();
-        return false;
+        bool out = object->event(event);
+        return out;
     }
     else
     {

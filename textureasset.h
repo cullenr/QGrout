@@ -5,7 +5,7 @@
 #include "gobject.h"
 #include "abstractasset.h"
 
-class TextureAsset : public GObject, public AbstractAsset
+class TextureAsset : public AbstractAsset
 {
     Q_OBJECT
     Q_PROPERTY(QString texturePath MEMBER m_texturePath)
@@ -14,14 +14,11 @@ class TextureAsset : public GObject, public AbstractAsset
 public:
     explicit TextureAsset(QObject *parent = 0);
 
-    const QString texturePath() const;
-    const GLuint glTextureId() const;
-    void setGlTextureId(const GLuint &glTextureId);
-
-    //AbstractAsset
     void accept(AssetVisitor &visitor) override;
-    void classBegin() override;
-    void componentComplete() override;
+
+    const QString texturePath() const;
+    GLuint glTextureId() const;
+    void setGlTextureId(const GLuint &glTextureId);
 
 private:
     GLuint m_glTextureId;

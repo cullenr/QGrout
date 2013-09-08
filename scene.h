@@ -6,6 +6,7 @@
 #include "initialisationvisitor.h"
 #include "updatevisitor.h"
 #include "gquickitem.h"
+#include "assetelementinterface.h"
 
 class Scene : public GQuickItem
 {
@@ -28,14 +29,13 @@ private slots:
     void draw();
 
 private:
-//    bool eventFilter(QObject *object, QEvent *event);
-
     AssetManager *m_resources;
     TileMap *m_tilemap;
 
     InitialisationVisitor m_initialisationVisitor;
     UpdateVisitor m_updateVsisitor;
     QVector<Actor *> m_actors;
+    QVector<AssetElementInterface *> m_assets;
     QVector2D m_cameraPosition;
 };
 

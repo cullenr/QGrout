@@ -16,8 +16,8 @@ private slots:
     void logStatus(QQuickView::Status status);
     void handleSceneGraphInitialized();
 
-//private:
-//    bool eventFilter(QObject *object, QEvent *event);
+private:
+    bool eventFilter(QObject *object, QEvent *event);
 };
 
 #endif // GAMEWINDOW_H
