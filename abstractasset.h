@@ -2,13 +2,13 @@
 #define ABSTRACTASSET_H
 
 #include <QQmlParserStatus>
-#include "gobject.h"
+#include <QObject>
 #include "assetelementinterface.h"
 
 class AssetVisitor;
 
 class AbstractAsset :
-        public GObject,
+        public QObject,
         public QQmlParserStatus,
         public AssetElementInterface
 {

@@ -4,7 +4,7 @@
 #include <QGLWidget>
 
 TextureAssetManager::TextureAssetManager(QObject *parent) :
-    GObject(parent)
+    QObject(parent)
 {
 }
 

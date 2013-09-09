@@ -3,15 +3,15 @@
 
 #include <QGLFunctions>
 #include <QVector>
+#include <QQuickItem>
 
-#include "gquickitem.h"
 #include "visitee.h"
 #include "mesh.h"
 
 class Visitor;
 class TileSheet;
 
-class TileMap : public GQuickItem, public QGLFunctions, public Visitee
+class TileMap : public QQuickItem, public QGLFunctions, public Visitee
 {
     Q_OBJECT
     Q_PROPERTY(TileSheet * tileSheet MEMBER m_tileSheet);

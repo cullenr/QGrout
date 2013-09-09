@@ -1,11 +1,11 @@
 #ifndef TILESHEET_H
 #define TILESHEET_H
 
-#include "gobject.h"
+#include <QObject>
 
 class Material;
 
-class TileSheet : public GObject
+class TileSheet : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(Material * material MEMBER m_material);

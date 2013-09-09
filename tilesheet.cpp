@@ -1,7 +1,7 @@
 #include "tilesheet.h"
 
 TileSheet::TileSheet(QObject *parent) :
-    GObject(parent)
+    QObject(parent)
 {
 }
 

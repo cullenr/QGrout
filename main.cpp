@@ -12,7 +12,7 @@
 #include "materialmanager.h"
 #include "actor.h"
 #include <QtQml/QQmlContext>
-#include "gobject.h"
+#include <QObject>
 
 int main(int argc, char *argv[])
 {

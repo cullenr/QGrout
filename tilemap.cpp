@@ -15,7 +15,7 @@
 #include <QDebug>
 
 TileMap::TileMap(QQuickItem *parent) :
-    GQuickItem(parent),
+    QQuickItem(parent),
     m_tileSheet(NULL)
 {
 }

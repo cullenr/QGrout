@@ -3,7 +3,7 @@
 #include "abstractasset.h"
 
 AbstractAsset::AbstractAsset(QObject *parent) :
-    GObject(parent)
+    QObject(parent)
 {
 }
 

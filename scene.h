@@ -1,14 +1,15 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <QQuickItem>
+
 #include "resourcemanager.h"
 #include "tilemap.h"
 #include "initialisationvisitor.h"
 #include "updatevisitor.h"
-#include "gquickitem.h"
 #include "assetelementinterface.h"
 
-class Scene : public GQuickItem
+class Scene : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(AssetManager* resources MEMBER m_resources)

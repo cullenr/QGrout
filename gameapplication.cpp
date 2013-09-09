@@ -11,10 +11,17 @@ bool GameApplication::notify(QObject *object, QEvent *event)
 {
     if(event->type() == AssetCreatedEvent::AssetCreatedType)
     {
-        qDebug("notify override");
+        bool accepted = false;
+        QObject *receiver = object;
 
-        bool out = object->event(event);
-        return out;
+        do
+        {
+            accepted = receiver->event(event);
+            receiver = receiver->parent();
+        }
+        while(receiver != nullptr || !accepted);
+
+        return accepted;
     }
     else
     {

@@ -1,7 +1,7 @@
 #ifndef SHADERASSET_H
 #define SHADERASSET_H
 
-#include "gobject.h"
+#include <QObject>
 #include "abstractasset.h"
 
 class QOpenGLShaderProgram;

@@ -1,13 +1,13 @@
 #ifndef RESOURCESMANAGER_H
 #define RESOURCESMANAGER_H
 
-#include "gobject.h"
+#include <QObject>
 
 class TextureAssetManager;
 class ShaderAssetManager;
 class MaterialManager;
 
-class AssetManager : public GObject
+class AssetManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(TextureAssetManager * textures MEMBER m_textureManager);

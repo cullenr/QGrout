@@ -6,7 +6,7 @@
 #include "assetcreatedevent.h"
 
 Scene::Scene(QQuickItem *parent) :
-    GQuickItem(parent)
+    QQuickItem(parent)
 {
     connect(this, SIGNAL(windowChanged(QQuickWindow*)), this, SLOT(handleWindowChanged(QQuickWindow*)));
 }

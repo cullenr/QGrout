@@ -1,7 +1,7 @@
 #ifndef SHADERASSETMANAGER_H
 #define SHADERASSETMANAGER_H
 
-#include "gobject.h"
+#include <QObject>
 #include <QString>
 #include <QList>
 #include <QQmlListProperty>
@@ -12,7 +12,7 @@ class QOpenGLShaderProgram;
 //class ShaderAsset;
 class QQuickWindow;
 
-class ShaderAssetManager : public GObject
+class ShaderAssetManager : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QQmlListProperty<ShaderAsset> shaderSources READ m_shaderSourcesQmlList NOTIFY shaderSourceUpdated);

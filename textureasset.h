@@ -2,7 +2,7 @@
 #define TEXTUREASSET_H
 
 #include <qopengl.h>
-#include "gobject.h"
+#include <QObject>
 #include "abstractasset.h"
 
 class TextureAsset : public AbstractAsset

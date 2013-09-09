@@ -5,10 +5,10 @@
 #include <QList>
 #include <QQmlListProperty>
 #include <QString>
-#include "gobject.h"
+#include <QObject>
 #include "textureasset.h"
 
-class TextureAssetManager : public GObject
+class TextureAssetManager : public QObject
 {
     Q_OBJECT
 

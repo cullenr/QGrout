@@ -8,7 +8,7 @@
 #include <QSGTexture>
 
 Material::Material(QObject *parent) :
-    GObject(parent),
+    QObject(parent),
     m_shader(0),
     m_texture(0)
 {

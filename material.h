@@ -3,12 +3,12 @@
 
 #include <QStringList>
 #include <QString>
-#include "gobject.h"
+#include <QObject>
 
 class TextureAsset;
 class ShaderAsset;
 
-class Material : public GObject
+class Material : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(ShaderAsset *shader MEMBER m_shader);
