@@ -2,14 +2,10 @@
 #include "gamewindow.h"
 #include "tilemap.h"
 #include "tilesheet.h"
-#include "shaderassetmanager.h"
 #include "shaderasset.h"
-#include "textureassetmanager.h"
-#include "resourcemanager.h"
 #include "scene.h"
 #include "textureasset.h"
 #include "material.h"
-#include "materialmanager.h"
 #include "actor.h"
 #include <QtQml/QQmlContext>
 #include <QObject>
@@ -21,19 +17,15 @@ int main(int argc, char *argv[])
     const int minor = 0;
 
     qmlRegisterType<TextureAsset>("QGrout", major, minor, "TextureAsset");
-    qmlRegisterType<TextureAssetManager>("QGrout", major, minor, "TextureAssetManager");
     qmlRegisterType<ShaderAsset>("QGrout", major, minor, "ShaderAsset");
-    qmlRegisterType<ShaderAssetManager>("QGrout", major, minor, "ShaderAssetManager");
-    qmlRegisterType<AssetManager>("QGrout", major, minor, "ResourceManager");
     qmlRegisterType<Scene>("QGrout", major, minor, "Scene");
     qmlRegisterType<Material>("QGrout", major, minor, "Material");
-    qmlRegisterType<MaterialManager>("QGrout", major, minor, "MaterialManager");
     qmlRegisterType<TileSheet>("QGrout", major, minor, "TileSheet");
     qmlRegisterType<TileMap>("QGrout", major, minor, "TileMap");
     qmlRegisterType<Actor>("QGrout", major, minor, "Actor");
 
     GameWindow viewer;
-    viewer.rootContext()->setContextProperty("Window", &viewer);
+    viewer.rootContext()->setContextProperty("Game", &viewer);
     viewer.setMainQmlFile(QStringLiteral("qml/qgrout/main.qml"));
     viewer.showExpanded();
 

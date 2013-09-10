@@ -3,13 +3,13 @@
 const QEvent::Type AssetCreatedEvent::AssetCreatedType =
         static_cast<QEvent::Type>(QEvent::registerEventType());
 
-AssetCreatedEvent::AssetCreatedEvent(AssetElementInterface *asset) :
+AssetCreatedEvent::AssetCreatedEvent(AbstractAsset *asset) :
     QEvent(AssetCreatedType),
     m_asset(asset)
 {
 }
 
-AssetElementInterface *AssetCreatedEvent::asset() const
+AbstractAsset *AssetCreatedEvent::asset() const
 {
     return m_asset;
 }

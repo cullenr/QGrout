@@ -8,56 +8,13 @@ Item{
     Scene{
         id: sceneOne
 
-        resources: ResourceManager {
-            textures: TextureAssetManager {
-                TextureAsset{
-                    id: minecraftTiles
-                    texturePath: ":/test/assets/minecraft_tilesheet.png"
-                }
-            }
-            shaders: ShaderAssetManager {
-                ShaderAsset {
-                    id: texture
-                    vertexShaderPath: ":/shaders/assets/shaders/texture.vert"
-                    fragmentShaderPath: ":/shaders/assets/shaders/texture.frag"
-                }
-//                ShaderAsset {
-//                    id: squircle
-//                    vertexShaderPath: ":/shaders/assets/shaders/squircle.vert"
-//                    fragmentShaderPath: ":/shaders/assets/shaders/squircle.frag"
-//                }
-//                ShaderAsset {
-//                    id: basic
-//                    vertexShaderPath: ":/shaders/assets/shaders/basic.vert"
-//                    fragmentShaderPath: ":/shaders/assets/shaders/basic.frag"
-//                }
-            }
-            materials: MaterialManager{
-                Material {
-                    id: textureMaterial
-                    shader: texture
-                    texture: minecraftTiles
-                }
-            }
-        }
-
         Text {
             id: testText
             text: sceneOne.cameraPosition.x + sceneOne.cameraPosition.y
             scale: 4
         }
 
-        TextureAsset{
-            id: minecraftTiles2
-            texturePath: ":/test/assets/minecraft_tilesheet.png"
-        }
-
         tilemap: TileMap {
-            ShaderAsset {
-                id: texture2
-                vertexShaderPath: ":/shaders/assets/shaders/texture.vert"
-                fragmentShaderPath: ":/shaders/assets/shaders/texture.frag"
-            }
             mapWidth: 10
             map: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                   1, 2, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -68,7 +25,15 @@ Item{
                   1, 0, 0, 0, 0, 0, 7, 0, 0, 1,
                   1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
             tileSheet: TileSheet {
-                material: textureMaterial
+                material: Material {
+                    shader: ShaderAsset {
+                        vertexShaderPath: ":/shaders/assets/shaders/texture.vert"
+                        fragmentShaderPath: ":/shaders/assets/shaders/texture.frag"
+                    }
+                    texture: TextureAsset{
+                        texturePath: ":/test/assets/minecraft_tilesheet.png"
+                    }
+                }
                 tilesAcross: 16
                 tilesSize: 32
             }
@@ -79,7 +44,6 @@ Item{
         Keys.onDownPressed: sceneOne.cameraPosition.y += 1
         Keys.onLeftPressed: sceneOne.cameraPosition.x += 1
         Keys.onRightPressed: sceneOne.cameraPosition.x -= 1
-
     }
 }
 

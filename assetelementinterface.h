@@ -1,5 +1,6 @@
 #ifndef ASSETELEMENTINTERFACE_H
 #define ASSETELEMENTINTERFACE_H
+
 class AssetVisitor;
 
 class AssetElementInterface

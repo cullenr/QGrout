@@ -3,16 +3,15 @@
 
 #include <QQuickItem>
 
-#include "resourcemanager.h"
 #include "tilemap.h"
 #include "initialisationvisitor.h"
 #include "updatevisitor.h"
-#include "assetelementinterface.h"
+#include "abstractasset.h"
+#include "assetinitialisationvisitor.h"
 
 class Scene : public QQuickItem
 {
     Q_OBJECT
-    Q_PROPERTY(AssetManager* resources MEMBER m_resources)
     Q_PROPERTY(TileMap* tilemap MEMBER m_tilemap)
     Q_PROPERTY(QVector2D cameraPosition MEMBER m_cameraPosition NOTIFY cameraPositionUpdated)
     Q_PROPERTY(QVector<Actor *> actors MEMBER m_actors)
@@ -30,14 +29,15 @@ private slots:
     void draw();
 
 private:
-    AssetManager *m_resources;
     TileMap *m_tilemap;
-
-    InitialisationVisitor m_initialisationVisitor;
-    UpdateVisitor m_updateVsisitor;
     QVector<Actor *> m_actors;
-    QVector<AssetElementInterface *> m_assets;
+    QVector<AbstractAsset *> m_assets;
     QVector2D m_cameraPosition;
+
+    //visitors
+    InitialisationVisitor m_initialisationVisitor;
+    AssetInitialisationVisitor m_assetInitialisationVisitor;
+    UpdateVisitor m_updateVsisitor;
 };
 
 #endif // SCENE_H

@@ -3,18 +3,18 @@
 
 #include <QEvent>
 
-class AssetElementInterface;
+class AbstractAsset;
 
 class AssetCreatedEvent : public QEvent
 {
 public:
-    explicit AssetCreatedEvent(AssetElementInterface *asset);
+    explicit AssetCreatedEvent(AbstractAsset *asset);
 
     static const QEvent::Type AssetCreatedType;
 
-    AssetElementInterface *asset() const;
+    AbstractAsset *asset() const;
 private:
-    AssetElementInterface *m_asset;
+    AbstractAsset *m_asset;
 };
 
 #endif // ASSETCREATEDEVENT_H

@@ -18,12 +18,9 @@ SOURCES += main.cpp \
     tilemap.cpp \
     gamewindow.cpp \
     scene.cpp \
-    resourcemanager.cpp \
     shaderassetmanager.cpp \
-    textureassetmanager.cpp \
     shaderasset.cpp \
     textureasset.cpp \
-    materialmanager.cpp \
     material.cpp \
     initialisationvisitor.cpp \
     mesh.cpp \
@@ -47,12 +44,9 @@ HEADERS += \
     tilemap.h \
     gamewindow.h \
     scene.h \
-    resourcemanager.h \
     shaderassetmanager.h \
-    textureassetmanager.h \
     shaderasset.h \
     textureasset.h \
-    materialmanager.h \
     material.h \
     vertexdata.h \
     visitee.h \
