@@ -9,7 +9,21 @@ The QGrout engine provides an OpenGl based rendering system and Box2d based phys
  well as object lifecycle management.
 
 The game engine manages objects through the `Scene` class. There are two types of object that can be
- managed by a `Scene`, these are `Asset` objects and `GameObjects`. Both of these types of objects
+ managed by a `Scene`, these are `Asset` objects and `SceneElement`s. Both of these types of objects
  should be data models with no logic in them except that to expose thier members to the QML engine.
  Controllers are implemented using the visitor pattern. The `Scene` will apply the appropriate
  visitor when necesary.
+
+
+ISceneElement
++ virtual void accept(SceneElementVisitor &);
+|
++-> AbstractGameObject : QObject
+|   + Vector2D transform() const;
+|   + void setTransform(const Vector2D &)
+|   |
+|   +-> Actor
+|       + QVector<Component *>
+|       + void accept(SceneElementVisitor) override;
+|
++-> AbstractGame

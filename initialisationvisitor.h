@@ -1,9 +1,9 @@
 #ifndef INITIALISATIONVISITOR_H
 #define INITIALISATIONVISITOR_H
 
-#include "visitor.h"
+#include "sceneelementvisitor.h"
 
-class InitialisationVisitor : public Visitor
+class InitialisationVisitor : public SceneElementVisitor
 {
 public:
     InitialisationVisitor();

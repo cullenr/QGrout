@@ -1,17 +1,17 @@
 #ifndef TILEMAP_H
 #define TILEMAP_H
 
-#include <QGLFunctions>
-#include <QVector>
-#include <QQuickItem>
+#include <QtOpenGL/QGLFunctions>
+#include <QtCore/QVector>
+#include <QtCore/QObject>
 
-#include "visitee.h"
+#include "abstractgameobject.h"
 #include "mesh.h"
 
-class Visitor;
+class SceneElementVisitor;
 class TileSheet;
 
-class TileMap : public QQuickItem, public QGLFunctions, public Visitee
+class TileMap : public AbstractGameObject, public QGLFunctions
 {
     Q_OBJECT
     Q_PROPERTY(TileSheet * tileSheet MEMBER m_tileSheet);
@@ -20,9 +20,9 @@ class TileMap : public QQuickItem, public QGLFunctions, public Visitee
     Q_PROPERTY(int tileSize MEMBER m_tileSize);
 
 public:
-    explicit TileMap(QQuickItem *parent = 0);
+    explicit TileMap(QObject *parent = 0);
 
-    void accept(Visitor &visitor);
+    void accept(SceneElementVisitor &visitor);
 
     TileSheet* tileSheet() const;
 

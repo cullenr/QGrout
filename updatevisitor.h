@@ -3,16 +3,16 @@
 
 #include <QMatrix4x4>
 
-#include "visitor.h"
+#include "sceneelementvisitor.h"
 
-class Visitee;
+class SceneElement;
 
-class UpdateVisitor : public Visitor
+class UpdateVisitor : public SceneElementVisitor
 {
 public:
     UpdateVisitor();
 
-    void visit(QVector<Visitee *> visitables);
+    void visit(QVector<SceneElement *> visitables);
     void visit(TileMap &tilemap) override;
     void visit(Actor &actor) override;
     void visit(SpriteComponent &spriteComponent) override;

@@ -1,22 +1,23 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-#include <QMatrix4x4>
-#include <QObject>
-#include "visitee.h"
+#include <QtGui/QMatrix4x4>
+#include <QtCore/QObject>
+#include "sceneelement.h"
+#include "abstractgameobject.h"
 
-class Actor : public QObject, public Visitee
+class Actor : public AbstractGameObject
 {
     Q_OBJECT
-    Q_PROPERTY(QList<Visitee *> components MEMBER m_components)
+    Q_PROPERTY(QList<SceneElement *> components MEMBER m_components)
 
 public:
     explicit Actor(QObject *parent = 0);
-    void accept(Visitor &visitor) override;
+    void accept(SceneElementVisitor &visitor) override;
 
-    QList<Visitee *> components() const;
+    QList<SceneElement *> components() const;
 private:
-    QList<Visitee *> m_components;
+    QList<SceneElement *> m_components;
     QMatrix4x4 m_transform;
 };
 

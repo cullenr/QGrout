@@ -4,33 +4,33 @@
 #include "updatevisitor.h"
 
 Actor::Actor(QObject *parent) :
-    QObject(parent)
+    AbstractGameObject(parent)
 {
 }
 
-void Actor::accept(Visitor &visitor)
+void Actor::accept(SceneElementVisitor &visitor)
 {
     visitor.visit(*this);
 }
 
-QList<Visitee *> Actor::components() const
+QList<SceneElement *> Actor::components() const
 {
     return m_components;
 }
 
 void InitialisationVisitor::visit(Actor &actor)
 {
-    for(Visitee *visitee : actor.components())
+    for(SceneElement *SceneElement : actor.components())
     {
-        visitee->accept(*this);
+        SceneElement->accept(*this);
     }
 }
 
 void UpdateVisitor::visit(Actor &actor)
 {
-    for(Visitee *visitee : actor.components())
+    for(SceneElement *SceneElement : actor.components())
     {
-        visitee->accept(*this);
+        SceneElement->accept(*this);
     }
 }
 

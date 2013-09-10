@@ -4,23 +4,21 @@
 #include "shaderasset.h"
 #include "textureasset.h"
 #include "vertexdata.h"
-#include "visitor.h"
+#include "sceneelementvisitor.h"
 #include "initialisationvisitor.h"
 #include "updatevisitor.h"
 
 #include <QtQuick/qquickwindow.h>
 #include <QtGui/QOpenGLShaderProgram>
-#include <QMatrix4x4>
-#include <QSGTexture>
-#include <QDebug>
+#include <QtGui/QMatrix4x4>
 
-TileMap::TileMap(QQuickItem *parent) :
-    QQuickItem(parent),
+TileMap::TileMap(QObject *parent) :
+    AbstractGameObject(parent),
     m_tileSheet(NULL)
 {
 }
 
-void TileMap::accept(Visitor &visitor)
+void TileMap::accept(SceneElementVisitor &visitor)
 {
     visitor.visit(*this);
 }

@@ -1,5 +1,5 @@
 #include "updatevisitor.h"
-#include "visitee.h"
+#include "sceneelement.h"
 
 UpdateVisitor::UpdateVisitor()
 {

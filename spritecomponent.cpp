@@ -1,5 +1,5 @@
 #include "spritecomponent.h"
-#include "visitor.h"
+#include "sceneelementvisitor.h"
 #include "updatevisitor.h"
 #include "initialisationvisitor.h"
 
@@ -8,7 +8,7 @@ SpriteComponent::SpriteComponent(QObject *parent) :
 {
 }
 
-void SpriteComponent::accept(Visitor &visitor)
+void SpriteComponent::accept(SceneElementVisitor &visitor)
 {
     visitor.visit(*this);
 }

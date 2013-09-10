@@ -1,3 +1,5 @@
+#include <QtQml/QQmlContext>
+#include <QtCore/QObject>
 #include "gameapplication.h"
 #include "gamewindow.h"
 #include "tilemap.h"
@@ -6,9 +8,8 @@
 #include "scene.h"
 #include "textureasset.h"
 #include "material.h"
+#include "abstractgameobject.h"
 #include "actor.h"
-#include <QtQml/QQmlContext>
-#include <QObject>
 
 int main(int argc, char *argv[])
 {

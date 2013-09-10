@@ -2,11 +2,11 @@
 #define SPRITECOMPONENT_H
 
 #include <QObject>
-#include "visitee.h"
+#include "sceneelement.h"
 
 class Material;
 
-class SpriteComponent : public QObject, public Visitee
+class SpriteComponent : public QObject, public SceneElement
 {
     Q_OBJECT
     Q_PROPERTY(Material *material MEMBER m_material);
@@ -14,7 +14,7 @@ class SpriteComponent : public QObject, public Visitee
 public:
     explicit SpriteComponent(QObject *parent = 0);
     
-    void accept(Visitor &visitor) override;
+    void accept(SceneElementVisitor &visitor) override;
 
 private:
     Material *m_material;

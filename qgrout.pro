@@ -31,7 +31,8 @@ SOURCES += main.cpp \
     assetcreatedevent.cpp \
     assetinitialisationvisitor.cpp \
     gameapplication.cpp \
-    abstractasset.cpp
+    abstractasset.cpp \
+    abstractgameobject.cpp
 
 # Installation path
 # target.path =
@@ -49,8 +50,6 @@ HEADERS += \
     textureasset.h \
     material.h \
     vertexdata.h \
-    visitee.h \
-    visitor.h \
     initialisationvisitor.h \
     mesh.h \
     tilesheet.h \
@@ -62,9 +61,15 @@ HEADERS += \
     assetvisitor.h \
     assetinitialisationvisitor.h \
     gameapplication.h \
-    assetelementinterface.h
+    assetelementinterface.h \
+    sceneelement.h \
+    sceneelementvisitor.h \
+    abstractgameobject.h
 
 RESOURCES += test_assets.qrc \
     shaders.qrc
 
 CONFIG += c++11
+
+OTHER_FILES += \
+    README.md

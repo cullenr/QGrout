@@ -1,8 +1,8 @@
 #ifndef ABSTRACTASSET_H
 #define ABSTRACTASSET_H
 
-#include <QQmlParserStatus>
-#include <QObject>
+#include <QtQml/QQmlParserStatus>
+#include <QtCore/QObject>
 #include "assetelementinterface.h"
 
 class AssetVisitor;
