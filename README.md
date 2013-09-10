@@ -16,13 +16,42 @@ The game engine manages objects through the `Scene` class. There are two types o
 
 
     ISceneElement
+    ========================================
     + virtual void accept(SceneElementVisitor &);
     |
-    +-> AbstractGameObject : QObject
-        + Vector2D transform() const;
-        + void setTransform(const Vector2D &)
+    +-> AbstractGameObject : QObject, ISceneElement, QQmlParserStatus
+        ========================================
+        + "QQmlParserStatus definitions"
+        + Vector2D transform;
         |
-        +-> Actor
-            + QVector<Component *>
-            + void accept(SceneElementVisitor) override;
+        +-> Actor : AbstractGameObject
+        |   ========================================
+        |   + void accept(SceneElementVisitor) override;
+        |   + QVector<Component *> components;
+        |
+        +-> Light : AbstractGameObject
+        |   ========================================
+        |   + float radius() const;
+        |   ...
+        |
+        ...
 
+
+    IAssetElement
+    ========================================
+    + virtual void accept(AssetElementVisitor)
+    |
+    +-> AbstractAsset : QObject, IAssetElement, QQmlParserStatus
+        ========================================
+        + "QQmlParserStatus definitions"
+        |
+        +-> TextureAsset : AbstractAsset
+        |   ========================================
+        |   + QString path;
+        |
+        +-> ShaderAsset : AbstractAsset
+        |   ========================================
+        |   + QString fragmentSourcePath
+        |   + QString vertexSourcePath
+        |
+        ...
