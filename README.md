@@ -15,15 +15,14 @@ The game engine manages objects through the `Scene` class. There are two types o
  visitor when necesary.
 
 
-ISceneElement
-+ virtual void accept(SceneElementVisitor &);
-|
-+-> AbstractGameObject : QObject
-|   + Vector2D transform() const;
-|   + void setTransform(const Vector2D &)
-|   |
-|   +-> Actor
-|       + QVector<Component *>
-|       + void accept(SceneElementVisitor) override;
-|
-+-> AbstractGame
+    ISceneElement
+    + virtual void accept(SceneElementVisitor &);
+    |
+    +-> AbstractGameObject : QObject
+        + Vector2D transform() const;
+        + void setTransform(const Vector2D &)
+        |
+        +-> Actor
+            + QVector<Component *>
+            + void accept(SceneElementVisitor) override;
+
