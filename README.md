@@ -1,9 +1,9 @@
 #QGrout
 
-##Overview
+QGrout is a Tile Game framework written in C++ for Qt 5.1 with QML bindings. The goal of the project
+ is to allow users to define a game entirely in QML.
 
-QGrout is a Tile Game framework written in C++ for Qt with QML bindings. The goal of the project is
- to allow users to define a game entirely in QML.
+##Overview
 
 The QGrout engine provides an OpenGl based rendering system and Box2d based physics simulation as
  well as object lifecycle management.
