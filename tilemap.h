@@ -8,8 +8,11 @@
 #include "abstractgameobject.h"
 #include "mesh.h"
 
-class SceneElementVisitor;
+class SceneItemVisitor;
 class TileSheet;
+
+//TODO : thi probably should not be a gameobject, more a sceneitem. its positioning is not
+// world relative
 
 class TileMap : public AbstractGameObject, public QGLFunctions
 {
@@ -22,7 +25,7 @@ class TileMap : public AbstractGameObject, public QGLFunctions
 public:
     explicit TileMap(QObject *parent = 0);
 
-    void accept(SceneElementVisitor &visitor);
+    void accept(SceneItemVisitor &visitor);
 
     TileSheet* tileSheet() const;
 

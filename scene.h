@@ -1,20 +1,21 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <QQuickItem>
+#include <QtQuick/QQuickItem>
+#include <QtQml/QQmlListProperty>
 
 #include "tilemap.h"
-#include "initialisationvisitor.h"
-#include "updatevisitor.h"
+#include "sceneiteminitvisitor.h"
+#include "sceneitemupdatevisitor.h"
 #include "abstractasset.h"
 #include "assetinitialisationvisitor.h"
 
 class Scene : public QQuickItem
 {
     Q_OBJECT
-    Q_PROPERTY(TileMap* tilemap MEMBER m_tilemap)
+    Q_PROPERTY(TileMap * tilemap MEMBER m_tilemap NOTIFY tileMapUpdated)
     Q_PROPERTY(QVector2D cameraPosition MEMBER m_cameraPosition NOTIFY cameraPositionUpdated)
-    Q_PROPERTY(QVector<Actor *> actors MEMBER m_actors)
+    Q_PROPERTY(QQmlListProperty<Actor> actors READ actorsQmlList NOTIFY actorsUpdated)
 
 public:
     explicit Scene(QQuickItem *parent = 0);
@@ -22,6 +23,8 @@ public:
 
 signals:
     void cameraPositionUpdated(QVector2D position);
+    void tileMapUpdated(TileMap *tileMap);
+    void actorsUpdated(QList<Actor *> actors);
 
 private slots:
     void handleWindowChanged(QQuickWindow *window);
@@ -29,15 +32,17 @@ private slots:
     void draw();
 
 private:
+    QQmlListProperty<Actor> actorsQmlList();
+
     TileMap *m_tilemap;
-    QVector<Actor *> m_actors;
+    QList<Actor *> m_actors;
     QVector<AbstractAsset *> m_assets;
     QVector2D m_cameraPosition;
 
     //visitors
-    InitialisationVisitor m_initialisationVisitor;
+    SceneItemInitVisitor m_initialisationVisitor;
     AssetInitialisationVisitor m_assetInitialisationVisitor;
-    UpdateVisitor m_updateVsisitor;
+    SceneItemUpdateVisitor m_updateVsisitor;
 };
 
 #endif // SCENE_H

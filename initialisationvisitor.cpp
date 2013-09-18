@@ -1,5 +1,5 @@
-#include "initialisationvisitor.h"
+#include "sceneiteminitvisitor.h"
 
-InitialisationVisitor::InitialisationVisitor()
+SceneItemInitVisitor::SceneItemInitVisitor()
 {
 }

@@ -9,7 +9,10 @@
 #include "textureasset.h"
 #include "material.h"
 #include "abstractgameobject.h"
+#include "spritecomponent.h"
 #include "actor.h"
+#include "sceneitem.h"
+#include "sceneelementinterface.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,9 +27,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<TileSheet>("QGrout", major, minor, "TileSheet");
     qmlRegisterType<TileMap>("QGrout", major, minor, "TileMap");
     qmlRegisterType<Actor>("QGrout", major, minor, "Actor");
+    qmlRegisterType<SpriteComponent>("QGrout", major, minor, "SpriteComponent");
+    qmlRegisterType<SceneItem>();// SceneItem is abstract, therefore we registr it this way.
 
     GameWindow viewer;
-    viewer.rootContext()->setContextProperty("Game", &viewer);
     viewer.setMainQmlFile(QStringLiteral("qml/qgrout/main.qml"));
     viewer.showExpanded();
 

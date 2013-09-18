@@ -4,12 +4,14 @@
 class TileMap;
 class Actor;
 class SpriteComponent;
+class Material;
 
-struct SceneElementVisitor
+struct SceneItemVisitor
 {
     virtual void visit(TileMap &tilemap) = 0;
     virtual void visit(Actor &actor) = 0;
     virtual void visit(SpriteComponent &spriteComponent) = 0;
+    virtual void visit(Material &spriteComponent) = 0;
 };
 
 #endif // SCENE_ELEMENT_VISITOR_H

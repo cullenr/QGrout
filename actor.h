@@ -3,22 +3,28 @@
 
 #include <QtGui/QMatrix4x4>
 #include <QtCore/QObject>
-#include "sceneelement.h"
+#include <QtQml/QQmlListProperty>
+#include "sceneelementinterface.h"
 #include "abstractgameobject.h"
+#include "sceneitem.h"
 
 class Actor : public AbstractGameObject
 {
     Q_OBJECT
-    Q_PROPERTY(QList<SceneElement *> components MEMBER m_components)
-
 public:
     explicit Actor(QObject *parent = 0);
-    void accept(SceneElementVisitor &visitor) override;
 
-    QList<SceneElement *> components() const;
+    void accept(SceneItemVisitor &visitor) override;
+    Q_INVOKABLE void addComponent(SceneItem * component);
+    Q_INVOKABLE void removeComponent(SceneItem * component);
+
+    QList<SceneElementInterface *> components() const;
+
+signals:
+    void init();
+
 private:
-    QList<SceneElement *> m_components;
-    QMatrix4x4 m_transform;
+    QList<SceneElementInterface *> m_components;
 };
 
 #endif // ACTOR_H

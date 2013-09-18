@@ -2,16 +2,23 @@
 #include "shaderasset.h"
 #include "textureasset.h"
 #include "vertexdata.h"
+#include "sceneitemvisitor.h"
+#include "sceneitemupdatevisitor.h"
+#include "sceneiteminitvisitor.h"
 
-#include <QOpenGLFunctions>
-#include <QOpenGLShaderProgram>
-#include <QSGTexture>
+#include <QtGui/QOpenGLFunctions>
+#include <QtGui/QOpenGLShaderProgram>
 
 Material::Material(QObject *parent) :
-    QObject(parent),
+    AbstractGameObject(parent),
     m_shader(0),
     m_texture(0)
 {
+}
+
+void Material::accept(SceneItemVisitor &visitor)
+{
+    visitor.visit(*this);
 }
 
 ShaderAsset * Material::shader() const
@@ -28,37 +35,37 @@ void Material::bind(QMatrix4x4 &mvpMatrix)//TODO : CONSIDER MSKING THIS A FREE F
 {
     QOpenGLFunctions gl(QOpenGLContext::currentContext());
     QOpenGLShaderProgram *shader = m_shader->shader();
-    //QSGTexture *texture = m_texture->texture();
     GLuint textId = m_texture->glTextureId();
 
     shader->bind();
 
     gl.glActiveTexture(GL_TEXTURE0);
-//    texture->bind();
     glBindTexture(GL_TEXTURE_2D, textId);
 
-//    GLuint textureId = texture->textureId();// does not bloody work!
-//    textureId--;//XXX: HACK! ^^^
-//    shader->setUniformValue("texture", textureId);
+    //GLuint textureId = texture->textureId();// does not bloody work!
+    //textureId--;//XXX: HACK! ^^^
+    //shader->setUniformValue("texture", textureId);
     shader->setUniformValue("texture", 0);
 
-    shader->setUniformValue("mvp", mvpMatrix);//Could use double dispatch to set these values if we want a nice type safe extensible solution
+    //Could use double dispatch to set these values if we want a nice type safe extensible solution
+    shader->setUniformValue("mvp", mvpMatrix);
 
     quintptr offset = 0;
 
     int vertexLocation = shader->attributeLocation("position");
     shader->enableAttributeArray(vertexLocation);
-    gl.glVertexAttribPointer(vertexLocation, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData), (const void *)offset);
+    gl.glVertexAttribPointer(vertexLocation, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData),
+            (const void *)offset);
 
     offset +=sizeof(QVector2D);
 
     int texcoordLocation = shader->attributeLocation("texturePosition");
     shader->enableAttributeArray(texcoordLocation);
-    gl.glVertexAttribPointer(texcoordLocation, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData), (const void *)offset);
-
+    gl.glVertexAttribPointer(texcoordLocation, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData),
+            (const void *)offset);
 }
 
-void Material::release()
+void Material::release()//TODO : CONSIDER MSKING THIS A FREE FUNCTION
 {
     QOpenGLShaderProgram *shader = m_shader->shader();
 

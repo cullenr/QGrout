@@ -17,12 +17,21 @@ public:
     void accept(AssetVisitor &visitor) override;
 
     const QString texturePath() const;
+
     GLuint glTextureId() const;
     void setGlTextureId(const GLuint &glTextureId);
+
+    int textureWidth() const;
+    void setTextureWidth(int textureWidth);
+
+    int textureHeight() const;
+    void setTextureHeight(int textureHeight);
 
 private:
     GLuint m_glTextureId;
     QString m_texturePath;
+    int m_textureWidth;
+    int m_textureHeight;
 };
 
 #endif // TEXTUREASSET_H

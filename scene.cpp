@@ -4,6 +4,7 @@
 #include "actor.h"
 #include "assetcreatedevent.h"
 
+#include <QDebug>
 
 Scene::Scene(QQuickItem *parent) :
     QQuickItem(parent)
@@ -22,6 +23,8 @@ bool Scene::event(QEvent *event)
         // TODO : CREATE A SETTER FOR THIS FUNCTION AND APPLY THE INIT VISITOR
         if(!m_assets.contains(asset))
             m_assets.append(asset);
+
+        qDebug() << m_assets.size();
 
         return true;
     }
@@ -49,6 +52,9 @@ void Scene::initialiseOpenGl()
     for(int i = 0; i < assets.length(); ++i)
         assets[i]->accept(m_assetInitialisationVisitor);
 
+    for(Actor *actor : m_actors)
+        actor->accept(m_initialisationVisitor);
+
     m_tilemap->accept(m_initialisationVisitor);
 
     window()->setClearBeforeRendering(false);
@@ -74,4 +80,9 @@ void Scene::draw()
 
     for(Actor *actor : m_actors)
         actor->accept(m_updateVsisitor);
+}
+
+QQmlListProperty<Actor> Scene::actorsQmlList()
+{
+    return QQmlListProperty<Actor>(this, m_actors);
 }

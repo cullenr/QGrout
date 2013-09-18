@@ -55,3 +55,40 @@ The game engine manages objects through the `Scene` class. There are two types o
         |   + QString vertexSourcePath
         |
         ...
+
+
+=======================================================================================
+We must register a non abstract class with the QML system in place of the SceneElementInterface.
+This gives us the inheritance model below. NOTE : QObject is not compatible with virtual inheritance
+and so we cannot make all interfaces virtualy inherit QObject. With no QObject the class cannot be
+registered.
+
+
+    SceneElementInerface
+    ========================================
+    + virtual void accept(SceneElementVisitor &);
+    |
+    |
+    +-> SceneItem : QObject, SceneElementInerface       //we could add a QQmlParser here
+        ========================================        //and a virtual get type method to
+        |                                               //support more dynamic instantiation.
+        |
+        +-> AbstractGameObject : SceneItem
+            ========================================
+            + Vector2D transform;
+            |
+            |
+            +-> Actor : AbstractGameObject
+            |   ========================================
+            |   + void accept(SceneElementVisitor) override;
+            |   + QVector<Component *> components;
+            |
+            |
+            +-> Light : AbstractGameObject
+            |   ========================================
+            |   + float radius() const;
+            |   ...
+            |
+            ...
+
+

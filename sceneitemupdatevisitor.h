@@ -3,19 +3,20 @@
 
 #include <QMatrix4x4>
 
-#include "sceneelementvisitor.h"
+#include "sceneitemvisitor.h"
 
-class SceneElement;
+class SceneElementInterface;
 
-class UpdateVisitor : public SceneElementVisitor
+class SceneItemUpdateVisitor : public SceneItemVisitor
 {
 public:
-    UpdateVisitor();
+    SceneItemUpdateVisitor();
 
-    void visit(QVector<SceneElement *> visitables);
+    void visit(QVector<SceneElementInterface *> visitables);
     void visit(TileMap &tilemap) override;
     void visit(Actor &actor) override;
     void visit(SpriteComponent &spriteComponent) override;
+    void visit(Material &material) override;
 
     QMatrix4x4 viewMatrix() const;
     void setViewMatrix(const QMatrix4x4 &viewMatrix);

@@ -1,20 +1,21 @@
 #ifndef MATERIALSOURCE_H
 #define MATERIALSOURCE_H
 
-#include <QStringList>
-#include <QString>
-#include <QObject>
+#include <QtCore/QObject>
+#include "abstractgameobject.h"
 
 class TextureAsset;
 class ShaderAsset;
 
-class Material : public QObject
+class Material : public AbstractGameObject
 {
     Q_OBJECT
     Q_PROPERTY(ShaderAsset *shader MEMBER m_shader);
     Q_PROPERTY(TextureAsset *texture MEMBER m_texture);
 public:
     explicit Material(QObject *parent = 0);
+
+    void accept(SceneItemVisitor &visitor) override;
 
     ShaderAsset *shader() const;
     TextureAsset *texture() const;

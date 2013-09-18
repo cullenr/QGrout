@@ -1,24 +1,27 @@
 #include "spritecomponent.h"
-#include "sceneelementvisitor.h"
-#include "updatevisitor.h"
-#include "initialisationvisitor.h"
+#include "sceneitemvisitor.h"
 
 SpriteComponent::SpriteComponent(QObject *parent) :
-    QObject(parent)
+    SceneItem(parent)
 {
 }
 
-void SpriteComponent::accept(SceneElementVisitor &visitor)
+void SpriteComponent::accept(SceneItemVisitor &visitor)
 {
     visitor.visit(*this);
 }
 
-void InitialisationVisitor::visit(SpriteComponent &spriteComponent)
+QRect SpriteComponent::textureRect() const
 {
-
+    return m_textureRect;
 }
 
-void UpdateVisitor::visit(SpriteComponent &spriteComponent)
+Material *SpriteComponent::material() const
 {
+    return m_material;
+}
 
+Mesh SpriteComponent::mesh() const
+{
+    return m_mesh;
 }

@@ -1,26 +1,26 @@
-#include "updatevisitor.h"
-#include "sceneelement.h"
+#include "sceneitemupdatevisitor.h"
+#include "sceneelementinterface.h"
 
-UpdateVisitor::UpdateVisitor()
+SceneItemUpdateVisitor::SceneItemUpdateVisitor()
 {
 }
 
-QMatrix4x4 UpdateVisitor::viewMatrix() const
+QMatrix4x4 SceneItemUpdateVisitor::viewMatrix() const
 {
     return m_viewMatrix;
 }
 
-void UpdateVisitor::setViewMatrix(const QMatrix4x4 &viewMatrix)
+void SceneItemUpdateVisitor::setViewMatrix(const QMatrix4x4 &viewMatrix)
 {
     m_viewMatrix = viewMatrix;
 }
 
-QMatrix4x4 UpdateVisitor::projectionMatrix() const
+QMatrix4x4 SceneItemUpdateVisitor::projectionMatrix() const
 {
     return m_projectionMatrix;
 }
 
-void UpdateVisitor::setProjectionMatrix(const QMatrix4x4 &perspectiveMatrix)
+void SceneItemUpdateVisitor::setProjectionMatrix(const QMatrix4x4 &perspectiveMatrix)
 {
     m_projectionMatrix = perspectiveMatrix;
 }

@@ -3,9 +3,11 @@
 
 #include <QtCore/QObject>
 #include <QtGui/QVector2D>
-#include "sceneelement.h"
+#include "sceneelementinterface.h"
 
-class AbstractGameObject : public QObject, public SceneElement
+class AbstractGameObject :
+        public QObject,
+        public SceneElementInterface
 {
     Q_OBJECT
     Q_PROPERTY(QVector2D position MEMBER m_position NOTIFY positionChanged)

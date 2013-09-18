@@ -1,37 +1,34 @@
 #include "actor.h"
-
-#include "initialisationvisitor.h"
-#include "updatevisitor.h"
+#include "sceneitemupdatevisitor.h"
 
 Actor::Actor(QObject *parent) :
     AbstractGameObject(parent)
 {
 }
 
-void Actor::accept(SceneElementVisitor &visitor)
+void Actor::accept(SceneItemVisitor &visitor)
 {
     visitor.visit(*this);
 }
 
-QList<SceneElement *> Actor::components() const
+QList<SceneElementInterface *> Actor::components() const
 {
     return m_components;
 }
 
-void InitialisationVisitor::visit(Actor &actor)
+void Actor::addComponent(SceneItem *component)
 {
-    for(SceneElement *SceneElement : actor.components())
-    {
-        SceneElement->accept(*this);
-    }
+    if(!m_components.contains(component))
+        m_components.append(component);
+    else
+        qWarning("Attempt to add a component twice.");
 }
 
-void UpdateVisitor::visit(Actor &actor)
+void Actor::removeComponent(SceneItem *component)
 {
-    for(SceneElement *SceneElement : actor.components())
-    {
-        SceneElement->accept(*this);
-    }
+    if(m_components.contains(component))
+        m_components.removeOne(component);
+    else
+        qWarning("Component is not contained in component list, it cannot be removed.");
 }
-
 

@@ -43,4 +43,6 @@ void AssetInitialisationVisitor::visit(TextureAsset &texture)
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
     texture.setGlTextureId(textureId);
+    texture.setTextureWidth(glImage.width());
+    texture.setTextureHeight(glImage.height());
 }
