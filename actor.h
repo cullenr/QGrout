@@ -6,7 +6,7 @@
 #include <QtQml/QQmlListProperty>
 #include "sceneelementinterface.h"
 #include "abstractgameobject.h"
-#include "sceneitem.h"
+#include "abstractsceneitem.h"
 
 class Actor : public AbstractGameObject
 {
@@ -15,8 +15,8 @@ public:
     explicit Actor(QObject *parent = 0);
 
     void accept(SceneItemVisitor &visitor) override;
-    Q_INVOKABLE void addComponent(SceneItem * component);
-    Q_INVOKABLE void removeComponent(SceneItem * component);
+    Q_INVOKABLE void addComponent(AbstractSceneItem * component);
+    Q_INVOKABLE void removeComponent(AbstractSceneItem * component);
 
     QList<SceneElementInterface *> components() const;
 

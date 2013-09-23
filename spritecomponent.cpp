@@ -2,7 +2,7 @@
 #include "sceneitemvisitor.h"
 
 SpriteComponent::SpriteComponent(QObject *parent) :
-    SceneItem(parent)
+    AbstractSceneItem(parent)
 {
 }
 

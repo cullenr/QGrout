@@ -13,6 +13,9 @@ QT += opengl
 # CONFIG += mobility
 # MOBILITY +=
 
+INCLUDEPATH += .
+include(Box2D/box2d.pri)
+
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     tilemap.cpp \
@@ -35,7 +38,8 @@ SOURCES += main.cpp \
     abstractgameobject.cpp \
     sceneiteminitvisitor.cpp \
     sceneitemupdatevisitor.cpp \
-    sceneitem.cpp
+    sceneitem.cpp \
+    layer.cpp
 
 # Installation path
 # target.path =
@@ -68,8 +72,9 @@ HEADERS += \
     sceneitemupdatevisitor.h \
     sceneiteminitvisitor.h \
     sceneelementinterface.h \
-    sceneitem.h \
-    sceneitems.h
+    sceneitems.h \
+    layer.h \
+    abstractsceneitem.h
 
 RESOURCES += test_assets.qrc \
     shaders.qrc

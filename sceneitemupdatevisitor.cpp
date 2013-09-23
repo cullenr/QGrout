@@ -4,9 +4,19 @@
 #include <QtGui/QOpenGLFunctions>
 #include <QtGui/QMatrix4x4>
 
+void SceneItemUpdateVisitor::visit(Layer &layer)
+{
+    layer.visualLayer()->accept(*this);
+
+    for(SceneElementInterface *actor : layer.actors())
+    {
+        actor->accept(*this);
+    }
+}
+
 void SceneItemUpdateVisitor::visit(Actor &actor)
 {
-    for(SceneElementInterface *item: actor.components())
+    for(SceneElementInterface *item : actor.components())
     {
         item->accept(*this);
     }

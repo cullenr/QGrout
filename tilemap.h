@@ -5,7 +5,7 @@
 #include <QtCore/QVector>
 #include <QtCore/QObject>
 
-#include "abstractgameobject.h"
+#include "abstractsceneitem.h"
 #include "mesh.h"
 
 class SceneItemVisitor;
@@ -14,7 +14,7 @@ class TileSheet;
 //TODO : thi probably should not be a gameobject, more a sceneitem. its positioning is not
 // world relative
 
-class TileMap : public AbstractGameObject, public QGLFunctions
+class TileMap : public AbstractSceneItem, public QGLFunctions
 {
     Q_OBJECT
     Q_PROPERTY(TileSheet * tileSheet MEMBER m_tileSheet);

@@ -11,8 +11,9 @@
 #include "abstractgameobject.h"
 #include "spritecomponent.h"
 #include "actor.h"
-#include "sceneitem.h"
+#include "abstractsceneitem.h"
 #include "sceneelementinterface.h"
+#include "layer.h"
 
 int main(int argc, char *argv[])
 {
@@ -27,8 +28,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<TileSheet>("QGrout", major, minor, "TileSheet");
     qmlRegisterType<TileMap>("QGrout", major, minor, "TileMap");
     qmlRegisterType<Actor>("QGrout", major, minor, "Actor");
+    qmlRegisterType<AbstractSceneItem>();// SceneItem is abstract, therefore we registr it this way.
+    qmlRegisterType<Layer>("QGrout", major, minor, "Layer");
     qmlRegisterType<SpriteComponent>("QGrout", major, minor, "SpriteComponent");
-    qmlRegisterType<SceneItem>();// SceneItem is abstract, therefore we registr it this way.
 
     GameWindow viewer;
     viewer.setMainQmlFile(QStringLiteral("qml/qgrout/main.qml"));

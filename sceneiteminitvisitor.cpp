@@ -9,6 +9,18 @@
 #include "textureasset.h"
 #include "tilesheet.h"
 
+void SceneItemInitVisitor::visit(Layer &layer)
+{
+    //get all physics items and intialise them using this layers physics controller.
+
+    layer.visualLayer()->accept(*this);
+
+    for(SceneElementInterface *actor : layer.actors())
+    {
+        actor->accept(*this);
+    }
+}
+
 void SceneItemInitVisitor::visit(SpriteComponent &spriteComponent)
 {
     GLushort indicies[4] = {0, 1, 2, 3};

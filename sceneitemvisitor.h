@@ -5,6 +5,7 @@ class TileMap;
 class Actor;
 class SpriteComponent;
 class Material;
+class Layer;
 
 struct SceneItemVisitor
 {
@@ -12,6 +13,7 @@ struct SceneItemVisitor
     virtual void visit(Actor &actor) = 0;
     virtual void visit(SpriteComponent &spriteComponent) = 0;
     virtual void visit(Material &spriteComponent) = 0;
+    virtual void visit(Layer &layer) = 0;
 };
 
 #endif // SCENE_ELEMENT_VISITOR_H

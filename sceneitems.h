@@ -5,5 +5,6 @@
 #include "tilemap.h"
 #include "material.h"
 #include "spritecomponent.h"
+#include "layer.h"
 
 #endif // SCENEITEMS_H

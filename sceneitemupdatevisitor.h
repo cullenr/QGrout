@@ -12,11 +12,11 @@ class SceneItemUpdateVisitor : public SceneItemVisitor
 public:
     SceneItemUpdateVisitor();
 
-    void visit(QVector<SceneElementInterface *> visitables);
     void visit(TileMap &tilemap) override;
     void visit(Actor &actor) override;
     void visit(SpriteComponent &spriteComponent) override;
     void visit(Material &material) override;
+    void visit(Layer &layer) override;
 
     QMatrix4x4 viewMatrix() const;
     void setViewMatrix(const QMatrix4x4 &viewMatrix);

@@ -1,7 +1,7 @@
-#include "sceneitem.h"
+#include "abstractsceneitem.h"
 #include "sceneitemvisitor.h"
 
-SceneItem::SceneItem(QObject *parent) :
+AbstractSceneItem::AbstractSceneItem(QObject *parent) :
     QObject(parent)
 {
 }

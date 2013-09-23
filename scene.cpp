@@ -52,10 +52,8 @@ void Scene::initialiseOpenGl()
     for(int i = 0; i < assets.length(); ++i)
         assets[i]->accept(m_assetInitialisationVisitor);
 
-    for(Actor *actor : m_actors)
-        actor->accept(m_initialisationVisitor);
-
-    m_tilemap->accept(m_initialisationVisitor);
+    for(Layer *layer : m_layers)
+        layer->accept(m_initialisationVisitor);
 
     window()->setClearBeforeRendering(false);
     connect(window(), SIGNAL(beforeRendering()), this, SLOT(draw()), Qt::DirectConnection);
@@ -76,13 +74,11 @@ void Scene::draw()
     m_updateVsisitor.setViewMatrix(viewMatrix);
     m_updateVsisitor.setProjectionMatrix(projectionMatrix);
 
-    m_tilemap->accept(m_updateVsisitor);
-
-    for(Actor *actor : m_actors)
-        actor->accept(m_updateVsisitor);
+    for(Layer *layer : m_layers)
+        layer->accept(m_updateVsisitor);
 }
 
-QQmlListProperty<Actor> Scene::actorsQmlList()
+QQmlListProperty<Layer> Scene::layersQmlList()
 {
-    return QQmlListProperty<Actor>(this, m_actors);
+    return QQmlListProperty<Layer>(this, m_layers);
 }

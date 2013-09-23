@@ -3,7 +3,7 @@
 
 #include <QtCore/QRect>
 #include <QtCore/QObject>
-#include "sceneitem.h"
+#include "abstractsceneitem.h"
 #include "mesh.h"
 #include "sceneitemupdatevisitor.h"
 #include "sceneiteminitvisitor.h"
@@ -11,7 +11,7 @@
 class Material;
 
 class SpriteComponent :
-        public SceneItem
+        public AbstractSceneItem
 {
     Q_OBJECT
     Q_PROPERTY(Material * material MEMBER m_material);

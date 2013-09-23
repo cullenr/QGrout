@@ -9,7 +9,7 @@
 #include <QtQuick/qquickwindow.h>
 
 TileMap::TileMap(QObject *parent) :
-    AbstractGameObject(parent),
+    AbstractSceneItem(parent),
     m_tileSheet(nullptr)
 {
 }

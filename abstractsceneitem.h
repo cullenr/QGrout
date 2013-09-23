@@ -5,11 +5,11 @@
 
 #include "sceneelementinterface.h"
 
-class SceneItem : public QObject, public SceneElementInterface
+class AbstractSceneItem : public QObject, public SceneElementInterface
 {
     Q_OBJECT
 public:
-    explicit SceneItem(QObject *parent = 0);
+    explicit AbstractSceneItem(QObject *parent = 0);
 };
 
 #endif // SCENEELEMENT_H

@@ -5,6 +5,7 @@
 #include <QtQml/QQmlListProperty>
 
 #include "tilemap.h"
+#include "layer.h"
 #include "sceneiteminitvisitor.h"
 #include "sceneitemupdatevisitor.h"
 #include "abstractasset.h"
@@ -13,9 +14,8 @@
 class Scene : public QQuickItem
 {
     Q_OBJECT
-    Q_PROPERTY(TileMap * tilemap MEMBER m_tilemap NOTIFY tileMapUpdated)
     Q_PROPERTY(QVector2D cameraPosition MEMBER m_cameraPosition NOTIFY cameraPositionUpdated)
-    Q_PROPERTY(QQmlListProperty<Actor> actors READ actorsQmlList NOTIFY actorsUpdated)
+    Q_PROPERTY(QQmlListProperty<Layer> layers READ layersQmlList NOTIFY layersUpdated)
 
 public:
     explicit Scene(QQuickItem *parent = 0);
@@ -23,8 +23,7 @@ public:
 
 signals:
     void cameraPositionUpdated(QVector2D position);
-    void tileMapUpdated(TileMap *tileMap);
-    void actorsUpdated(QList<Actor *> actors);
+    void layersUpdated(QList<Layer *> layers);
 
 private slots:
     void handleWindowChanged(QQuickWindow *window);
@@ -32,10 +31,9 @@ private slots:
     void draw();
 
 private:
-    QQmlListProperty<Actor> actorsQmlList();
+    QQmlListProperty<Layer> layersQmlList();
 
-    TileMap *m_tilemap;
-    QList<Actor *> m_actors;
+    QList<Layer *> m_layers;
     QVector<AbstractAsset *> m_assets;
     QVector2D m_cameraPosition;
 

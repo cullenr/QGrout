@@ -16,30 +16,35 @@ Scene {
         }
     }
 
-    actors: [
-        Hero {}
+    layers: [
+        Layer {
+            actors: [
+                Hero {}
+            ]
+
+            visualElement: TileMap {
+                mapWidth: 10
+                map: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+                      1, 2, 0, 0, 0, 0, 0, 0, 0, 1,
+                      1, 0, 3, 0, 0, 0, 0, 0, 0, 1,
+                      1, 0, 0, 4, 0, 0, 0, 0, 0, 1,
+                      1, 0, 0, 0, 5, 0, 0, 0, 0, 1,
+                      1, 0, 0, 0, 0, 6, 0, 0, 0, 1,
+                      1, 0, 0, 0, 0, 0, 7, 0, 0, 1,
+                      1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+                tileSheet: TileSheet {
+                    material: Material {
+                        shader: assets.textureShader
+                        texture: assets.tiles
+                    }
+                    tilesAcross: 16
+                    tilesSize: 32
+                }
+
+            }
+        }
     ]
 
-    tilemap: TileMap {
-        mapWidth: 10
-        map: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-              1, 2, 0, 0, 0, 0, 0, 0, 0, 1,
-              1, 0, 3, 0, 0, 0, 0, 0, 0, 1,
-              1, 0, 0, 4, 0, 0, 0, 0, 0, 1,
-              1, 0, 0, 0, 5, 0, 0, 0, 0, 1,
-              1, 0, 0, 0, 0, 6, 0, 0, 0, 1,
-              1, 0, 0, 0, 0, 0, 7, 0, 0, 1,
-              1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-        tileSheet: TileSheet {
-            material: Material {
-                shader: assets.textureShader
-                texture: assets.tiles
-            }
-            tilesAcross: 16
-            tilesSize: 32
-        }
-
-    }
 
     focus: true
     Keys.onUpPressed: sceneOne.cameraPosition.y -= 1

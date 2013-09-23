@@ -12,6 +12,7 @@ public:
     void visit(Actor &actor) override;
     void visit(SpriteComponent &spriteComponent) override;
     void visit(Material &material) override;
+    void visit(Layer &layer) override;
 };
 
 #endif // INITIALISATIONVISITOR_H

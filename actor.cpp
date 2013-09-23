@@ -16,7 +16,7 @@ QList<SceneElementInterface *> Actor::components() const
     return m_components;
 }
 
-void Actor::addComponent(SceneItem *component)
+void Actor::addComponent(AbstractSceneItem *component)
 {
     if(!m_components.contains(component))
         m_components.append(component);
@@ -24,7 +24,7 @@ void Actor::addComponent(SceneItem *component)
         qWarning("Attempt to add a component twice.");
 }
 
-void Actor::removeComponent(SceneItem *component)
+void Actor::removeComponent(AbstractSceneItem *component)
 {
     if(m_components.contains(component))
         m_components.removeOne(component);
