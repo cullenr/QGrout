@@ -16,11 +16,6 @@ QQmlListProperty<Actor> Layer::actorsQmlList()
     return QQmlListProperty<Actor>(this, m_actors);
 }
 
-AbstractSceneItem *Layer::physicsLayer() const
-{
-    return m_physicsLayer;
-}
-
 AbstractSceneItem *Layer::visualLayer() const
 {
     return m_visualLayer;

@@ -10,7 +10,7 @@
 #include <QtGui/QOpenGLShaderProgram>
 
 Material::Material(QObject *parent) :
-    AbstractGameObject(parent),
+    AbstractSceneItem(parent),
     m_shader(0),
     m_texture(0)
 {

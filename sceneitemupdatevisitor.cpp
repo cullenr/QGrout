@@ -14,6 +14,11 @@ void SceneItemUpdateVisitor::visit(Layer &layer)
     }
 }
 
+void SceneItemUpdateVisitor::visit(RigidBodyPhysicsController &physicController)
+{
+
+}
+
 void SceneItemUpdateVisitor::visit(Actor &actor)
 {
     for(SceneElementInterface *item : actor.components())

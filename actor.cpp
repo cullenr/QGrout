@@ -1,8 +1,8 @@
 #include "actor.h"
-#include "sceneitemupdatevisitor.h"
+#include "sceneitemvisitor.h"
 
 Actor::Actor(QObject *parent) :
-    AbstractGameObject(parent)
+    AbstractSceneItem(parent)
 {
 }
 
@@ -11,24 +11,12 @@ void Actor::accept(SceneItemVisitor &visitor)
     visitor.visit(*this);
 }
 
-QList<SceneElementInterface *> Actor::components() const
+QList<AbstractSceneItem *> Actor::components() const
 {
     return m_components;
 }
 
-void Actor::addComponent(AbstractSceneItem *component)
+QQmlListProperty<AbstractSceneItem> Actor::componentsQmlList()
 {
-    if(!m_components.contains(component))
-        m_components.append(component);
-    else
-        qWarning("Attempt to add a component twice.");
+    return QQmlListProperty<AbstractSceneItem>(this, m_components);
 }
-
-void Actor::removeComponent(AbstractSceneItem *component)
-{
-    if(m_components.contains(component))
-        m_components.removeOne(component);
-    else
-        qWarning("Component is not contained in component list, it cannot be removed.");
-}
-

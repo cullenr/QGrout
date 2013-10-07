@@ -16,6 +16,7 @@ class Scene : public QQuickItem
     Q_OBJECT
     Q_PROPERTY(QVector2D cameraPosition MEMBER m_cameraPosition NOTIFY cameraPositionUpdated)
     Q_PROPERTY(QQmlListProperty<Layer> layers READ layersQmlList NOTIFY layersUpdated)
+    Q_PROPERTY(QQmlListProperty<AbstractSceneItem> components READ componentsQmlList NOTIFY componentsUpdated)
 
 public:
     explicit Scene(QQuickItem *parent = 0);
@@ -24,6 +25,7 @@ public:
 signals:
     void cameraPositionUpdated(QVector2D position);
     void layersUpdated(QList<Layer *> layers);
+    void componentsUpdated(QList<AbstractSceneItem*> components);
 
 private slots:
     void handleWindowChanged(QQuickWindow *window);
@@ -32,8 +34,10 @@ private slots:
 
 private:
     QQmlListProperty<Layer> layersQmlList();
+    QQmlListProperty<AbstractSceneItem> componentsQmlList();
 
     QList<Layer *> m_layers;
+    QList<AbstractSceneItem *> m_components;
     QVector<AbstractAsset *> m_assets;
     QVector2D m_cameraPosition;
 

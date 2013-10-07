@@ -9,10 +9,13 @@
 #include "textureasset.h"
 #include "tilesheet.h"
 
+void SceneItemInitVisitor::visit(RigidBodyPhysicsController &physicsController)
+{
+
+}
+
 void SceneItemInitVisitor::visit(Layer &layer)
 {
-    //get all physics items and intialise them using this layers physics controller.
-
     layer.visualLayer()->accept(*this);
 
     for(SceneElementInterface *actor : layer.actors())

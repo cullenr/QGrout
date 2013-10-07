@@ -5,6 +5,8 @@
 #include "tilemap.h"
 #include "material.h"
 #include "spritecomponent.h"
+
 #include "layer.h"
+#include "rigidbodyphysicscontroller.h"
 
 #endif // SCENEITEMS_H

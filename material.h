@@ -2,12 +2,12 @@
 #define MATERIALSOURCE_H
 
 #include <QtCore/QObject>
-#include "abstractgameobject.h"
+#include "abstractsceneitem.h"
 
 class TextureAsset;
 class ShaderAsset;
 
-class Material : public AbstractGameObject
+class Material : public AbstractSceneItem
 {
     Q_OBJECT
     Q_PROPERTY(ShaderAsset *shader MEMBER m_shader);

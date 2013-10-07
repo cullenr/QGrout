@@ -6,6 +6,7 @@ class Actor;
 class SpriteComponent;
 class Material;
 class Layer;
+class RigidBodyPhysicsController;
 
 struct SceneItemVisitor
 {
@@ -14,6 +15,7 @@ struct SceneItemVisitor
     virtual void visit(SpriteComponent &spriteComponent) = 0;
     virtual void visit(Material &spriteComponent) = 0;
     virtual void visit(Layer &layer) = 0;
+    virtual void visit(RigidBodyPhysicsController &physicsController) = 0;
 };
 
 #endif // SCENE_ELEMENT_VISITOR_H

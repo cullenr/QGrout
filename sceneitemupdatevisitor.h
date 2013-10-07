@@ -17,6 +17,7 @@ public:
     void visit(SpriteComponent &spriteComponent) override;
     void visit(Material &material) override;
     void visit(Layer &layer) override;
+    void visit(RigidBodyPhysicsController &physicController) override;
 
     QMatrix4x4 viewMatrix() const;
     void setViewMatrix(const QMatrix4x4 &viewMatrix);

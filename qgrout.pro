@@ -35,11 +35,12 @@ SOURCES += main.cpp \
     assetinitialisationvisitor.cpp \
     gameapplication.cpp \
     abstractasset.cpp \
-    abstractgameobject.cpp \
     sceneiteminitvisitor.cpp \
     sceneitemupdatevisitor.cpp \
     sceneitem.cpp \
-    layer.cpp
+    layer.cpp \
+    rigidbodyphysicscontroller.cpp \
+    abstracttransform.cpp
 
 # Installation path
 # target.path =
@@ -67,14 +68,15 @@ HEADERS += \
     assetinitialisationvisitor.h \
     gameapplication.h \
     assetelementinterface.h \
-    abstractgameobject.h \
     sceneitemvisitor.h \
     sceneitemupdatevisitor.h \
     sceneiteminitvisitor.h \
     sceneelementinterface.h \
     sceneitems.h \
     layer.h \
-    abstractsceneitem.h
+    abstractsceneitem.h \
+    rigidbodyphysicscontroller.h \
+    abstracttransform.h
 
 RESOURCES += test_assets.qrc \
     shaders.qrc

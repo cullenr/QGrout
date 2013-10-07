@@ -13,6 +13,7 @@ public:
     void visit(SpriteComponent &spriteComponent) override;
     void visit(Material &material) override;
     void visit(Layer &layer) override;
+    void visit(RigidBodyPhysicsController &physicsController) override;
 };
 
 #endif // INITIALISATIONVISITOR_H

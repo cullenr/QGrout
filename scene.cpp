@@ -4,8 +4,6 @@
 #include "actor.h"
 #include "assetcreatedevent.h"
 
-#include <QDebug>
-
 Scene::Scene(QQuickItem *parent) :
     QQuickItem(parent)
 {
@@ -23,8 +21,6 @@ bool Scene::event(QEvent *event)
         // TODO : CREATE A SETTER FOR THIS FUNCTION AND APPLY THE INIT VISITOR
         if(!m_assets.contains(asset))
             m_assets.append(asset);
-
-        qDebug() << m_assets.size();
 
         return true;
     }
@@ -81,4 +77,9 @@ void Scene::draw()
 QQmlListProperty<Layer> Scene::layersQmlList()
 {
     return QQmlListProperty<Layer>(this, m_layers);
+}
+
+QQmlListProperty<AbstractSceneItem> Scene::componentsQmlList()
+{
+    return QQmlListProperty<AbstractSceneItem>(this, m_components);
 }

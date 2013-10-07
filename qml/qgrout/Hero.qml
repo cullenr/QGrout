@@ -12,10 +12,7 @@ Actor {
         textureCoordinates: Qt.rect(224, 224, 32, 32)
     }
 
-    //maybe used the gameobject find method here instead of manualy adding and removing.
-    onInit: {
-        var a = sprite;
-        //console.trace(sprite);
-        hero.addComponent(sprite);
-    }
+    components: [
+        sprite
+    ]
 }

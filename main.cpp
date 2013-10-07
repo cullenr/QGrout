@@ -8,7 +8,6 @@
 #include "scene.h"
 #include "textureasset.h"
 #include "material.h"
-#include "abstractgameobject.h"
 #include "spritecomponent.h"
 #include "actor.h"
 #include "abstractsceneitem.h"
