@@ -6,8 +6,8 @@
 
 struct VertexData
 {
-    QVector2D position;
-    QVector2D textureCoordinate;
+    float position[2];
+    float textureCoordinate[2];
 };
 
 #endif // VERTEXDATA_H

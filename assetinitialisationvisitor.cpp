@@ -4,6 +4,7 @@
 #include <QGLWidget>
 #include <QDebug>
 #include <QOpenGLShaderProgram>
+#include <locale.h>
 
 AssetInitialisationVisitor::AssetInitialisationVisitor()
 {

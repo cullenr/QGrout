@@ -16,7 +16,6 @@ QT += opengl
 INCLUDEPATH += .
 include(Box2D/box2d.pri)
 
-# The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     tilemap.cpp \
     gamewindow.cpp \

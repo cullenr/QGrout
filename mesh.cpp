@@ -5,10 +5,10 @@ Mesh::Mesh()
 
 }
 
-Mesh::Mesh(GLuint buffers[2], quintptr bufferLengths[2]) :
-    m_buffers({buffers[0], buffers[1]}),
-    m_bufferLengths({bufferLengths[0], bufferLengths[1]})
+Mesh::Mesh(GLuint buffers[2], quintptr bufferLengths[2])
 {
+    memcpy(m_buffers, buffers, sizeof(buffers[0]) * 2);
+    memcpy(m_bufferLengths, bufferLengths, sizeof(bufferLengths[0]) * 2);
 }
 
 GLuint* Mesh::buffers()

@@ -31,17 +31,17 @@ void SceneItemInitVisitor::visit(SpriteComponent &spriteComponent)
     float textureWidthReciprocal = 1.0f / material->texture()->textureWidth();
     float textureHeightReciprocal = 1.0f / material->texture()->textureHeight();
     QRect rect = spriteComponent.textureRect();
-    int width = rect.width();
-    int height = rect.height();
+    float width = (float)rect.width();
+    float height = (float)rect.height();
     float s1 = rect.x() * textureWidthReciprocal;
     float s2 = s1 + width * textureWidthReciprocal;
     float t1 = rect.y() * textureHeightReciprocal;
     float t2 = t1 + height * textureHeightReciprocal;
     VertexData verticies[4];
-    verticies[0] = {QVector2D(0, 0), QVector2D(s1, t1)};
-    verticies[1] = {QVector2D(width, 0), QVector2D(s2, t1)};
-    verticies[2] = {QVector2D(0, height), QVector2D(s1, t2)};
-    verticies[3] = {QVector2D(width, height), QVector2D(s2, t2)};
+    verticies[0] = {{0.0f, 0.0f}, {s1, t1}};
+    verticies[1] = {{width, 0.0f}, {s2, t1}};
+    verticies[2] = {{0.0f, height}, {s1, t2}};
+    verticies[3] = {{width, height}, {s2, t2}};
 
     QOpenGLFunctions gl(QOpenGLContext::currentContext());
 
@@ -84,7 +84,7 @@ void SceneItemInitVisitor::visit(TileMap &tilemap)
 
     for(int i = 0; i < mapHeight; i++)
     {
-        const int vertexY = i * tilesize;
+        const float vertexY = i * tilesize;
 
         VertexData verticies[mapWidth * 4];
         GLushort indicies[mapWidth * 6 - 2];
@@ -102,17 +102,17 @@ void SceneItemInitVisitor::visit(TileMap &tilemap)
             const float s = x * tileWidthReciprocal;
             const float t = y * tileWidthReciprocal;
 
-            const int vertexX = j * tilesize;
+            const float vertexX = j * tilesize;
             const int baseIndex = j * 4;
 
-            verticies[verticiesIndex++] = { QVector2D(vertexX, vertexY),
-                                            QVector2D(s, t)};
-            verticies[verticiesIndex++] = { QVector2D(vertexX + tilesize, vertexY),
-                                            QVector2D(s + tileWidthReciprocal, t)};
-            verticies[verticiesIndex++] = { QVector2D(vertexX, vertexY + tilesize),
-                                            QVector2D(s, t + tileWidthReciprocal)};
-            verticies[verticiesIndex++] = { QVector2D(vertexX + tilesize, vertexY + tilesize),
-                                            QVector2D(s + tileWidthReciprocal, t + tileWidthReciprocal)};
+            verticies[verticiesIndex++] = { {vertexX, vertexY},
+                                            {s, t}};
+            verticies[verticiesIndex++] = { {vertexX + tilesize, vertexY},
+                                            {s + tileWidthReciprocal, t}};
+            verticies[verticiesIndex++] = { {vertexX, vertexY + tilesize},
+                                            {s, t + tileWidthReciprocal}};
+            verticies[verticiesIndex++] = { {vertexX + tilesize, vertexY + tilesize},
+                                            {s + tileWidthReciprocal, t + tileWidthReciprocal}};
 
             indicies[indiciesIndex++] = baseIndex;
             //add degenerate triangle if necessary

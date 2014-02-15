@@ -7,7 +7,7 @@ class Mesh
 {
 public:
     Mesh();
-    Mesh(GLuint buffers[2], quintptr bufferLengths[2]);
+    Mesh(GLuint buffers[], quintptr bufferLengths[]);
 
     GLuint* buffers();
     quintptr* bufferLengths();
